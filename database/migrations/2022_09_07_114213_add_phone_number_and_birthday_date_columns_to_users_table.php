@@ -14,8 +14,8 @@ class AddPhoneNumberAndBirthdayDateColumnsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone_number')->unique();
-            $table->date('birthday');
+            $table->string('phone_number')->nullable();
+            $table->date('birthday')->nullable();
         });
     }
 

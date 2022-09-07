@@ -4,6 +4,7 @@ use App\Http\Controllers\Main\MainController;
 use App\Http\Controllers\Albums\AlbumsController;
 use Illuminate\Support\Facades\Route;
 
+require __DIR__.'/auth.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [MainController::class,'index'])->name('main.index');
+Route::get('/', [MainController::class,'index'])->middleware(['auth'])->name('main.index');
+
+
+Route::get('/dashboard', function() {
+    return view('dashboard');
+})->name('dashboard');
+
+
+Route::resource('albums',AlbumsController::class);
+
+
+
+
 
 
 //Route::group(['namespace' => 'Album','prefix'=>'albums'], function() {
@@ -24,10 +37,6 @@ Route::get('/', [MainController::class,'index'])->name('main.index');
 ////    Route::get('/{album}', [AlbumsController::class,'show'])->name('album.show');
 //    Route::get('/add_album', [AlbumsController::class,'create'])->name('album.create');
 //});
-
-
-Route::resource('albums',AlbumsController::class);
-
 //Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

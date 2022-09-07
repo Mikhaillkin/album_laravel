@@ -14,7 +14,8 @@ class MainController extends Controller
      */
     public function index()
     {
-        return redirect()->route('album.index');
+//        return redirect()->route('album.index');
+        return "Main Page Album";
     }
 
     /**
