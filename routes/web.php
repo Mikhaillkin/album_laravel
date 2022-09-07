@@ -19,12 +19,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainController::class,'index'])->name('main.index');
 
 
-Route::group(['namespace' => 'Album','prefix'=>'albums'], function() {
-    Route::get('/', [AlbumsController::class,'index'])->name('album.index');
-//    Route::get('/{album}', [AlbumsController::class,'show'])->name('album.show');
-    Route::get('/add_album', [AlbumsController::class,'create'])->name('album.create');
-});
+//Route::group(['namespace' => 'Album','prefix'=>'albums'], function() {
+//    Route::get('/', [AlbumsController::class,'index'])->name('album.index');
+////    Route::get('/{album}', [AlbumsController::class,'show'])->name('album.show');
+//    Route::get('/add_album', [AlbumsController::class,'create'])->name('album.create');
+//});
 
+
+Route::resource('albums',AlbumsController::class);
 
 //Auth::routes();
 
