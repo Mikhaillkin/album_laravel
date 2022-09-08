@@ -16,7 +16,14 @@
             <div>
                 <x-label for="name" :value="__('Name')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus/>
+            </div>
+            <br>
+            <!-- Phone Number -->
+            <div>
+                <x-label for="phone_number" :value="__('Phone')" />
+
+                <x-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required autofocus placeholder="+7ХХХХХХХХХХ" />
             </div>
 
             <!-- Email Address -->
@@ -50,9 +57,16 @@
                     {{ __('Already registered?') }}
                 </a>
 
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
+
+                <div>
+                    <x-button class="ml-4">
+                        {{ __('Register') }}
+                    </x-button>
+                    Or
+                    <a class="ml-3" href="{{ route('login') }}">
+                        {{ __('Sign in') }}
+                    </a>
+                </div>
             </div>
         </form>
     </x-auth-card>
