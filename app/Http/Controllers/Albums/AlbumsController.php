@@ -71,9 +71,9 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Album $album)
     {
-        //
+        return view('albums.edit', compact('album'));
     }
 
     /**
@@ -83,9 +83,17 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Album $album)
     {
-        //
+
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+        ];
+
+//        dd($album);
+        $album->update($data);
+        return redirect()->route('albums.show',$album->id);
     }
 
     /**
@@ -94,8 +102,10 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Album $album)
     {
-        //
+        $album->delete();
+
+        return redirect()->route('main.index',);
     }
 }

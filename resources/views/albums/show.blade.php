@@ -56,7 +56,7 @@
 </header>
 
 <main role="main">
-    <h1>Это гстраница одного албома с его фотографиями внутри</h1>
+    <h1>Это страница одного албома с его фотографиями внутри</h1>
     <div class="d-flex justify-content-center">
         11111111111111111111
         <table class="table table-hover table-condensed" id="albums-table">
@@ -68,10 +68,11 @@
             </thead>
             <tbody class="d-flex flex-column" >
                 <tr>
-                    <td>{{ $album->id }}</td>
-                    <td>{{ $album->title }}</td>
+{{--                    <td>{{ $album->id }}</td>--}}
+{{--                    <td>{{ $album->title }}</td>--}}
                     <td>{{ $album->description }}</td>
                     <td>{{ $album->user_id }}</td>
+                    <td><a href="{{ route('albums.edit',$album->id) }}">Редактировать</a></td>
                 <tr/>
             </tbody>
         </table>
