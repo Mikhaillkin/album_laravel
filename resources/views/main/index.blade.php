@@ -56,6 +56,7 @@
 </header>
 
 <main role="main">
+    <h1>Это главная страница альбомов</h1>
     <div class="d-flex justify-content-center">
         11111111111111111111
         <table class="table table-hover table-condensed" id="albums-table">
@@ -72,6 +73,7 @@
                     <td>{{ $album->title }}</td>
                     <td>{{ $album->description }}</td>
                     <td>{{ $album->user_id }}</td>
+                    <td><a href="{{ route('albums.show',$album->id) }}"><strong>Подробнее</strong></a></td>
                 <tr/>
             @endforeach
             </tbody>
