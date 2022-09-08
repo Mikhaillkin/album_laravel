@@ -56,6 +56,28 @@
 </header>
 
 <main role="main">
+    <div class="d-flex justify-content-center">
+        11111111111111111111
+        <table class="table table-hover table-condensed" id="albums-table">
+            <thead class="d-flex justify-content-between">
+            <th>id</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Автор</th>
+            </thead>
+            <tbody class="d-flex flex-column" >
+            @foreach($albums as $album)
+                <tr>
+                    <td>{{ $album->id }}</td>
+                    <td>{{ $album->title }}</td>
+                    <td>{{ $album->description }}</td>
+                    <td>{{ $album->user_id }}</td>
+                <tr/>
+            @endforeach
+            </tbody>
+        </table>
+        1111111111111111111111111111
+    </div>
 
     <section class="jumbotron text-center">
         <div class="container">

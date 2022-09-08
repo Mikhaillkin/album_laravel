@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Albums;
 
 use App\Http\Controllers\Controller;
+use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
 {
@@ -14,7 +16,10 @@ class AlbumsController extends Controller
      */
     public function index()
     {
-        return view('main.index');
+        $albums = Album::all();
+//        dd($albums);
+
+        return view('main.index',compact('albums'));
     }
 
     /**
@@ -24,18 +29,29 @@ class AlbumsController extends Controller
      */
     public function create()
     {
-        return view('albums.create');
+        $albums = Album::all();
+        return view('albums.create',compact('albums'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => Auth::user()->id,
+        ];
+        Album::create($data);
+        $albums = Album::all();
+
+
+//        return redirect(route( 'albums.index'));
+        return view('albums.create',compact('albums'));
     }
 
     /**

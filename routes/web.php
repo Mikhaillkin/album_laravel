@@ -25,8 +25,7 @@ Route::get('/dashboard', function() {
 })->name('dashboard');
 
 
-Route::resource('albums',AlbumsController::class);
-
+Route::resource('albums',AlbumsController::class)->middleware(['auth']);
 
 
 
