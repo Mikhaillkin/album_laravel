@@ -77,25 +77,61 @@
         </div>
     </div>
 
-{{--    <footer class="my-5 pt-5 text-muted text-center text-small">--}}
-{{--        <p class="mb-1">&copy; 2017-2018 Company Name</p>--}}
-{{--        <ul class="list-inline">--}}
-{{--            <li class="list-inline-item"><a href="#">Privacy</a></li>--}}
-{{--            <li class="list-inline-item"><a href="#">Terms</a></li>--}}
-{{--            <li class="list-inline-item"><a href="#">Support</a></li>--}}
-{{--        </ul>--}}
-{{--    </footer>--}}
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2017-2018 Company Name</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
 </div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+{{--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--}}
+{{--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>--}}
 <script src="../../assets/js/vendor/popper.min.js"></script>
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
 <script>
+    {{--$(document).ready(function() {--}}
+
+    {{--    $('#add_album').on('submit', function(e) {--}}
+    {{--        e.preventDefault();--}}
+    {{--        var form = this;--}}
+
+    {{--        $.ajax({--}}
+    {{--            url:"{{ route('photos.store') }}",--}}
+    {{--            method: "POST",--}}
+    {{--            data: new FormData(form),--}}
+    {{--            processData:false,--}}
+    {{--            dataType: 'json',--}}
+    {{--            contentType: false,--}}
+    {{--            // beforeSend: function () {--}}
+    {{--            //     $(form).find('span.error-text').text('');--}}
+    {{--            // },--}}
+    {{--            success: function (data) {--}}
+    {{--                // if(data.code == 0) {--}}
+    {{--                //     $.each(data.error, function(prefix,val) {--}}
+    {{--                //        $(form).find('span.'+prefix+'_error').text(val[0]);--}}
+    {{--                //     });--}}
+    {{--                // }else {--}}
+    {{--                //     $(form)[0].reset();--}}
+    {{--                //     alert(data.msg);--}}
+    {{--                // }--}}
+
+    {{--                alert(data.msg);--}}
+    {{--            }--}}
+    {{--        })--}}
+    {{--    });--}}
+
+    {{--});--}}
+
+
+
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
         'use strict';
@@ -116,17 +152,6 @@
             });
         }, false);
     })();
-</script>
-<script>
-    $(function() {
-
-        $('#add_album').on('submit', function(e) {
-            e.preventDefault();
-
-            alert('submit form');
-        })
-
-    })
 </script>
 </body>
 </html>

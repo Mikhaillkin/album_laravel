@@ -74,18 +74,19 @@
 
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Сохранить</button>
+                <a href="{{ route('albums.index') }}" class="btn btn-primary btn-lg btn-block">Вернуться на Главную</a>
             </form>
         </div>
     </div>
 
-{{--    <footer class="my-5 pt-5 text-muted text-center text-small">--}}
-{{--        <p class="mb-1">&copy; 2017-2018 Company Name</p>--}}
-{{--        <ul class="list-inline">--}}
-{{--            <li class="list-inline-item"><a href="#">Privacy</a></li>--}}
-{{--            <li class="list-inline-item"><a href="#">Terms</a></li>--}}
-{{--            <li class="list-inline-item"><a href="#">Support</a></li>--}}
-{{--        </ul>--}}
-{{--    </footer>--}}
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2017-2018 Company Name</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
 </div>
 
 <!-- Bootstrap core JavaScript
@@ -120,7 +121,7 @@
 </script>
 {{--<script>--}}
 {{--    $(function() {--}}
-{{--        alert('hello');--}}         проверял работу jquery
+{{--        alert('hello');--}}
 {{--    })--}}
 {{--</script>--}}
 </body>

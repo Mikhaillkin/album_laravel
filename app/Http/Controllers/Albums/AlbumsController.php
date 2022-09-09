@@ -93,7 +93,8 @@ class AlbumsController extends Controller
 
 //        dd($album);
         $album->update($data);
-        return redirect()->route('albums.show',$album->id);
+//        return redirect()->route('albums.show',$album->id);
+        return redirect()->route('albums.index');
     }
 
     /**

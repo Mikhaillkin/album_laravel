@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Photos;
 
 use App\Http\Controllers\Controller;
+use App\Models\Album;
+use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+//use Illuminate\Validation\Validator;
+
 
 class PhotosController extends Controller
 {
@@ -22,9 +28,11 @@ class PhotosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('photos.create');
+//        dd($request->album_id);
+        $album_id = $request->album_id;
+        return view('photos.create',compact('album_id'));
     }
 
     /**
@@ -35,7 +43,50 @@ class PhotosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+//        $validator = Validator::make($request->all(),[
+//            'image' => 'required|image',
+//            'caption' => 'required|string'
+//        ]);
+
+//        dd($request->all());
+
+//        dd(1111111111111111);
+
+//        if(!$validator->passes()) {
+//            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
+//        } else {
+//            $path = 'files/';
+//            $file = $request->file('image');
+//            $file_name = time().'_'.$file->getClientOriginalName();
+//
+//            $upload = $file->storeAs($path,$file_name);
+//
+//            if($upload){
+//                return response()->json(['code',1,'msg'=>'New image has been saved successfully']);
+//            };
+//        }
+
+//        dd($request->caption);
+
+        $path = 'public/photos/';
+
+//        dd($request->file('image'));
+
+        $file = $request->file('image');
+        $file_name = time().'_'.$file->getClientOriginalName();
+
+        $upload = $file->storeAs($path,$file_name);
+
+        if($upload){
+            Photo::create([
+                'caption' => $request->caption,
+//                'image' => Storage::url($request->image),
+                'image' => $upload,
+                'album_id' => $request->album_id,
+            ]);
+
+            return response()->json(['code'=>1,'msg'=>'New image has been saved successfully']);
+        };
     }
 
     /**

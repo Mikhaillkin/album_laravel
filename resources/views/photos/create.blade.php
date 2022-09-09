@@ -27,76 +27,113 @@
         <h2>Checkout form</h2>
         <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
 {{--        @dd($albums)--}}
-        11111111111111111111
-        <table class="table table-hover table-condensed" id="albums-table">
-            <thead class="d-flex justify-content-between">
-            <th>id</th>
-            <th>Название</th>
-            <th>Описание</th>
-            <th>Автор</th>
-            </thead>
-            <tbody class="d-flex flex-column" >
-            @foreach($albums as $album)
-                <tr>
-                    <td>{{ $album->id }}</td>
-                    <td>{{ $album->title }}</td>
-                    <td>{{ $album->description }}</td>
-                    <td>{{ $album->user_id }}</td>
-                <tr/>
-            @endforeach
-            </tbody>
-        </table>
-        1111111111111111111111111111
+{{--        11111111111111111111--}}
+{{--        <table class="table table-hover table-condensed" id="albums-table">--}}
+{{--            <thead class="d-flex justify-content-between">--}}
+{{--            <th>id</th>--}}
+{{--            <th>Название</th>--}}
+{{--            <th>Описание</th>--}}
+{{--            <th>Автор</th>--}}
+{{--            </thead>--}}
+{{--            <tbody class="d-flex flex-column" >--}}
+{{--            @foreach($albums as $album)--}}
+{{--                <tr>--}}
+{{--                    <td>{{ $album->id }}</td>--}}
+{{--                    <td>{{ $album->title }}</td>--}}
+{{--                    <td>{{ $album->description }}</td>--}}
+{{--                    <td>{{ $album->user_id }}</td>--}}
+{{--                <tr/>--}}
+{{--            @endforeach--}}
+{{--            </tbody>--}}
+{{--        </table>--}}
+{{--        1111111111111111111111111111--}}
     </div>
 
     <div class="row">
         <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">Создание албома</h4>
-            <form action="{{route('albums.store')}}" method="POST" class="needs-validation" novalidate id="add_album" >
+            <h4 class="mb-3">Добавить фотографию</h4>
+{{--            <form action="{{route('albums.store')}}" method="POST" class="needs-validation" novalidate id="add_album" enctype="multipart/form-data">--}}
+            <form action="#" method="POST" class="needs-validation" novalidate id="add_photo" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
-                    <label for="title">Название</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Введите название альбома" required>
+                    <label for="image">Фото</label>
+                    <input type="file" class="form-control" id="image" name="image" required>
 {{--                    <div class="invalid-feedback">--}}
 {{--                        Please enter your shipping address.--}}
 {{--                    </div>--}}
+                    <span class="text-danger error-text image_error" ></span>
                 </div>
 
                 <div class="mb-3">
-                    <label for="description">Описание</label>
-                    <input type="text" class="form-control" id="description" name="description" placeholder="Введите описание альбома" required>
+                    <label for="caption">Подпись</label>
+                    <input type="text" class="form-control" id="caption" name="caption" placeholder="Подпись к фото" required>
 {{--                    <div class="invalid-feedback">--}}
 {{--                        Please enter your shipping address.--}}
 {{--                    </div>--}}
+                    <span class="text-danger error-text caption_error" >
                 </div>
+                <input type="hidden" name="album_id" value="{{ $album_id }}" required>
 
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Создать</button>
-                <a href="{{ route('albums.index') }}" class="btn btn-primary btn-lg btn-block">Вернуться на  Главную</a>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Добавить</button>
+{{--                <a href="{{ redirect()->back() }}" class="btn btn-primary btn-lg btn-block">Вернуться</a>--}}
+                <a href="{{ route('albums.index') }}" class="btn btn-primary btn-lg btn-block">Вернуться на Главную</a>
             </form>
         </div>
     </div>
 
-{{--    <footer class="my-5 pt-5 text-muted text-center text-small">--}}
-{{--        <p class="mb-1">&copy; 2017-2018 Company Name</p>--}}
-{{--        <ul class="list-inline">--}}
-{{--            <li class="list-inline-item"><a href="#">Privacy</a></li>--}}
-{{--            <li class="list-inline-item"><a href="#">Terms</a></li>--}}
-{{--            <li class="list-inline-item"><a href="#">Support</a></li>--}}
-{{--        </ul>--}}
-{{--    </footer>--}}
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; 2017-2018 Company Name</p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
 </div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+{{--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>--}}
 <script src="../../assets/js/vendor/popper.min.js"></script>
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
 <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    $(document).ready(function() {
+
+            $('#add_photo').on('submit', function(e) {
+                e.preventDefault();
+                var form = this;
+
+                $.ajax({
+                    url:"{{ route('photos.store') }}",
+                    method: "POST",
+                    data: new FormData(form),
+                    processData:false,
+                    dataType: 'json',
+                    contentType: false,
+                    // beforeSend: function () {
+                    //     $(form).find('span.error-text').text('');
+                    // },
+                    success: function (data) {
+                        // if(data.code == 0) {
+                        //     $.each(data.error, function(prefix,val) {
+                        //        $(form).find('span.'+prefix+'_error').text(val[0]);
+                        //     });
+                        // }else {
+                        //     $(form)[0].reset();
+                        //     alert(data.msg);
+                        // }
+
+                        $(form)[0].reset();
+                        alert(data.msg);
+                    }
+                })
+            });
+
+    });
     (function() {
         'use strict';
 
@@ -117,16 +154,6 @@
         }, false);
     })();
 </script>
-<script>
-    $(function() {
 
-        $('#add_album').on('submit', function(e) {
-            e.preventDefault();
-
-            alert('submit form');
-        })
-
-    })
-</script>
 </body>
 </html>

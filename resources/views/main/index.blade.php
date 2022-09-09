@@ -92,14 +92,7 @@
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">Список альбомов</h1>
-{{--            <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don't simply skip over it entirely.</p>--}}
-{{--            <p>--}}
-            <div>
-                <a href="#" class="btn btn-primary my-2">Загрузить новую фотографию</a>
-            </div>
-            <div>
-                <a href="{{ route('albums.create') }}" class="btn btn-primary my-2">Создать альбом</a>
-            </div>
+            <a href="{{ route('albums.create') }}" class="btn btn-primary my-2">Создать альбом</a>
 
 {{--                <a href="#" class="btn btn-secondary my-2">Secondary action</a>--}}
             </p>

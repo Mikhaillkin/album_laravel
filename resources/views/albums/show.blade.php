@@ -57,10 +57,11 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">Страица альбома "{{ $album->title }}"</h1>
+{{--            <h1 class="jumbotron-heading">Страица альбома "{{ $album->title }}"</h1>--}}
             <p class="lead text-muted">Описание: {{ $album->description }}</p>
             <p>
-                <a href="#" class="btn btn-primary my-2">Добавить фотографию</a>
+{{--                @dd($album->id)--}}
+                <a href="{{ route('photos.create',['album_id' => $album->id]) }}" class="btn btn-primary my-2">Добавить фотографию</a>
             </p>
         </div>
     </section>
