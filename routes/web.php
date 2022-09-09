@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Main\MainController;
 use App\Http\Controllers\Albums\AlbumsController;
+use App\Http\Controllers\Photos\PhotosController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
@@ -26,6 +27,7 @@ Route::get('/dashboard', function() {
 
 
 Route::resource('albums',AlbumsController::class)->middleware(['auth']);
+Route::resource('photos',PhotosController::class)->middleware(['auth']);
 
 
 
