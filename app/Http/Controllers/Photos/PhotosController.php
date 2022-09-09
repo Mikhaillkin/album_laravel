@@ -43,15 +43,12 @@ class PhotosController extends Controller
      */
     public function store(Request $request)
     {
-//        $validator = Validator::make($request->all(),[
+        //        $validator = Validator::make($request->all(),[
 //            'image' => 'required|image',
 //            'caption' => 'required|string'
 //        ]);
-
 //        dd($request->all());
-
 //        dd(1111111111111111);
-
 //        if(!$validator->passes()) {
 //            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
 //        } else {
@@ -65,23 +62,25 @@ class PhotosController extends Controller
 //                return response()->json(['code',1,'msg'=>'New image has been saved successfully']);
 //            };
 //        }
-
 //        dd($request->caption);
 //        dd($request->file('image'));
 
         $path = 'public/photos/';
 
 
+//        $file = $request->file('image');
+//        $file_name = time().'_'.$file->getClientOriginalName();
+//
+//        $image = $file->storeAs($path,$file_name);
+
         $file = $request->file('image');
-        $file_name = time().'_'.$file->getClientOriginalName();
+        $image = Storage::disk('public')->put('/photos', $file);
 
-        $upload = $file->storeAs($path,$file_name);
-
-        if($upload){
+        if($image){
             Photo::create([
                 'caption' => $request->caption,
 //                'image' => Storage::url($request->image),
-                'image' => $upload,
+                'image' => $image,
                 'album_id' => $request->album_id,
             ]);
 
