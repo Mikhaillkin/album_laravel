@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Albums;
 
 use App\Http\Controllers\Controller;
 use App\Models\Album;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -72,7 +73,8 @@ class AlbumsController extends Controller
      */
     public function show(Album $album)
     {
-        return view('albums.show', compact('album'));
+        $photos = Photo::where('album_id', $album->id)->get()->all();
+        return view('albums.show', compact('album','photos'));
     }
 
     /**
