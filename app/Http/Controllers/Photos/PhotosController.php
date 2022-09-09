@@ -67,10 +67,10 @@ class PhotosController extends Controller
 //        }
 
 //        dd($request->caption);
+//        dd($request->file('image'));
 
         $path = 'public/photos/';
 
-//        dd($request->file('image'));
 
         $file = $request->file('image');
         $file_name = time().'_'.$file->getClientOriginalName();

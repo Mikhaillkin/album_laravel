@@ -27,32 +27,31 @@
         <h2>Checkout form</h2>
         <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
 {{--        @dd($albums)--}}
-        11111111111111111111
-        <table class="table table-hover table-condensed" id="albums-table">
-            <thead class="d-flex justify-content-between">
-            <th>id</th>
-            <th>Название</th>
-            <th>Описание</th>
-            <th>Автор</th>
-            </thead>
-            <tbody class="d-flex flex-column" >
-            @foreach($albums as $album)
-                <tr>
-                    <td>{{ $album->id }}</td>
-                    <td>{{ $album->title }}</td>
-                    <td>{{ $album->description }}</td>
-                    <td>{{ $album->user_id }}</td>
-                <tr/>
-            @endforeach
-            </tbody>
-        </table>
-        1111111111111111111111111111
+{{--        <table class="table table-hover table-condensed" id="albums-table">--}}
+{{--            <thead class="d-flex justify-content-between">--}}
+{{--            <th>id</th>--}}
+{{--            <th>Название</th>--}}
+{{--            <th>Описание</th>--}}
+{{--            <th>Автор</th>--}}
+{{--            </thead>--}}
+{{--            <tbody class="d-flex flex-column" >--}}
+{{--            @foreach($albums as $album)--}}
+{{--                <tr>--}}
+{{--                    <td>{{ $album->id }}</td>--}}
+{{--                    <td>{{ $album->title }}</td>--}}
+{{--                    <td>{{ $album->description }}</td>--}}
+{{--                    <td>{{ $album->user_id }}</td>--}}
+{{--                <tr/>--}}
+{{--            @endforeach--}}
+{{--            </tbody>--}}
+{{--        </table>--}}
     </div>
 
     <div class="row">
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Создание албома</h4>
-            <form action="{{route('albums.store')}}" method="POST" class="needs-validation" novalidate id="add_album" >
+{{--            <form action="{{route('albums.store')}}" method="POST" class="needs-validation" novalidate id="add_album" >--}}
+            <form action="#" method="POST" class="needs-validation" novalidate id="add_album" >
                 @csrf
                 <div class="mb-3">
                     <label for="title">Название</label>
@@ -97,38 +96,39 @@
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
 <script>
-    {{--$(document).ready(function() {--}}
+    $(document).ready(function() {
 
-    {{--    $('#add_album').on('submit', function(e) {--}}
-    {{--        e.preventDefault();--}}
-    {{--        var form = this;--}}
+        $('#add_album').on('submit', function(e) {
+            e.preventDefault();
+            var form = this;
 
-    {{--        $.ajax({--}}
-    {{--            url:"{{ route('photos.store') }}",--}}
-    {{--            method: "POST",--}}
-    {{--            data: new FormData(form),--}}
-    {{--            processData:false,--}}
-    {{--            dataType: 'json',--}}
-    {{--            contentType: false,--}}
-    {{--            // beforeSend: function () {--}}
-    {{--            //     $(form).find('span.error-text').text('');--}}
-    {{--            // },--}}
-    {{--            success: function (data) {--}}
-    {{--                // if(data.code == 0) {--}}
-    {{--                //     $.each(data.error, function(prefix,val) {--}}
-    {{--                //        $(form).find('span.'+prefix+'_error').text(val[0]);--}}
-    {{--                //     });--}}
-    {{--                // }else {--}}
-    {{--                //     $(form)[0].reset();--}}
-    {{--                //     alert(data.msg);--}}
-    {{--                // }--}}
+            $.ajax({
+                url:"{{ route('albums.store') }}",
+                method: "POST",
+                data: new FormData(form),
+                processData:false,
+                dataType: 'json',
+                contentType: false,
+                // beforeSend: function () {
+                //     $(form).find('span.error-text').text('');
+                // },
+                success: function (data) {
+                    // if(data.code == 0) {
+                    //     $.each(data.error, function(prefix,val) {
+                    //        $(form).find('span.'+prefix+'_error').text(val[0]);
+                    //     });
+                    // }else {
+                    //     $(form)[0].reset();
+                    //     alert(data.msg);
+                    // }
 
-    {{--                alert(data.msg);--}}
-    {{--            }--}}
-    {{--        })--}}
-    {{--    });--}}
+                    $(form)[0].reset();
+                    alert(data.msg);
+                }
+            })
+        });
 
-    {{--});--}}
+    });
 
 
 

@@ -47,11 +47,21 @@ class AlbumsController extends Controller
             'user_id' => Auth::user()->id,
         ];
         Album::create($data);
-        $albums = Album::all();
+//        $albums = Album::all();
+
+
+//        Photo::create([
+//            'caption' => $request->caption,
+//            'image' => $upload,
+//            'album_id' => $request->album_id,
+//        ]);
+//
+//        return response()->json(['code'=>1,'msg'=>'New image has been saved successfully']);
 
 
 //        return redirect(route( 'albums.index'));
-        return view('albums.create',compact('albums'));
+//        return view('albums.create',compact('albums'));
+        return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
     }
 
     /**
