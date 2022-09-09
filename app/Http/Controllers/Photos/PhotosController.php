@@ -79,8 +79,8 @@ class PhotosController extends Controller
         if($image){
             Photo::create([
                 'caption' => $request->caption,
-//                'image' => Storage::url($request->image),
-                'image' => $image,
+//                'image' => $image,
+                'image' => Storage::url($image),
                 'album_id' => $request->album_id,
             ]);
 

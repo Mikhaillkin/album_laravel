@@ -57,7 +57,7 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-{{--            <h1 class="jumbotron-heading">Страица альбома "{{ $album->title }}"</h1>--}}
+            <h1 class="jumbotron-heading">Страица альбома "{{ $album->title }}"</h1>
             <p class="lead text-muted">Описание: {{ $album->description }}</p>
             <p>
 {{--                @dd($album->id)--}}
@@ -74,7 +74,8 @@
                 @foreach($photos as $photo)
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" src="{{ 'http://127.0.0.1:8000/' . 'storage/' . $photo->image }}" alt="Card image cap">
+{{--                            <img class="card-img-top" src="{{ 'http://127.0.0.1:8000/' . 'public/storage/' . $photo->image }}" alt="Card image cap">--}}
+                            <img class="card-img-top" src="{{ $photo->image }}" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">{{ $photo->caption }}</p>
 {{--                                <div class="d-flex justify-content-between align-items-center">--}}
