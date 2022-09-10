@@ -97,7 +97,7 @@
     <x-button class="btn btn-lg btn-primary btn-block" type="submit">
         {{ __('Log in') }}
     </x-button>
-    Or
+    <strong>Or</strong>
     <a href="{{ route('register') }}" class="btn btn-lg btn-primary btn-block" >Sign up</a>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2022</p>
 </form>
