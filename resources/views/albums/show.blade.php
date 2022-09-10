@@ -75,7 +75,7 @@
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
 {{--                            <img class="card-img-top" src="{{ 'http://127.0.0.1:8000/' . 'public/storage/' . $photo->image }}" alt="Card image cap">--}}
-                            <img class="card-img-top" src="{{ $photo->image }}" alt="Card image cap">
+                            <img class="card-img-top" style="height: 225px; width: 100%; display: block;" src="{{ $photo->image }}" alt="Card image cap">
                             <div class="card-body">
                                 <p class="card-text">{{ $photo->caption }}</p>
 {{--                                <div class="d-flex justify-content-between align-items-center">--}}
