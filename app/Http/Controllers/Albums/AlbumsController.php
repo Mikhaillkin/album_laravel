@@ -18,9 +18,11 @@ class AlbumsController extends Controller
     public function index()
     {
         $albums = Album::all();
+        $randomPhoto = Photo::get();
+//        foreach($album->photos->where('album_id',$album->id)->random(1) as $photo) {};
 //        dd($albums);
 
-        return view('main.index',compact('albums'));
+        return view('main.index',compact('albums','randomPhoto'));
     }
 
     /**
