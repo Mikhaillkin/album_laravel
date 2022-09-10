@@ -5,15 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Album extends Model
+class Photo extends Model
 {
     use HasFactory;
-
-    protected $table = 'albums';
+    protected $table = 'photos';
     protected $guarded = false;
-
-
-    public function photos() {
-        return $this->hasMany(Photo::class, 'album_id', 'id');
-    }
 }

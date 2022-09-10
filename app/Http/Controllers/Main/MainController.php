@@ -14,8 +14,7 @@ class MainController extends Controller
      */
     public function index()
     {
-//        return redirect()->route('album.index');
-        return "Main Page Album";
+        return redirect()->route('albums.index');
     }
 
     /**
@@ -36,7 +35,7 @@ class MainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd(2);
     }
 
     /**

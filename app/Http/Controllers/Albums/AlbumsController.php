@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Albums;
 
 use App\Http\Controllers\Controller;
+use App\Models\Album;
+use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
 {
@@ -14,7 +17,12 @@ class AlbumsController extends Controller
      */
     public function index()
     {
-        return view('main.index');
+        $albums = Album::all();
+        $randomPhoto = Photo::get();
+//        foreach($album->photos->where('album_id',$album->id)->random(1) as $photo) {};
+//        dd($albums);
+
+        return view('main.index',compact('albums','randomPhoto'));
     }
 
     /**
@@ -24,18 +32,39 @@ class AlbumsController extends Controller
      */
     public function create()
     {
-        return view('albums.create');
+        $albums = Album::all();
+        return view('albums.create',compact('albums'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => Auth::user()->id,
+        ];
+        Album::create($data);
+//        $albums = Album::all();
+
+
+//        Photo::create([
+//            'caption' => $request->caption,
+//            'image' => $upload,
+//            'album_id' => $request->album_id,
+//        ]);
+//
+//        return response()->json(['code'=>1,'msg'=>'New image has been saved successfully']);
+
+
+//        return redirect(route( 'albums.index'));
+//        return view('albums.create',compact('albums'));
+        return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
     }
 
     /**
@@ -44,9 +73,10 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Album $album)
     {
-        //
+        $photos = Photo::where('album_id', $album->id)->get()->all();
+        return view('albums.show', compact('album','photos'));
     }
 
     /**
@@ -55,9 +85,9 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Album $album)
     {
-        //
+        return view('albums.edit', compact('album'));
     }
 
     /**
@@ -67,9 +97,18 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Album $album)
     {
-        //
+
+        $data = [
+            'title' => $request->title,
+            'description' => $request->description,
+        ];
+
+//        dd($album);
+        $album->update($data);
+//        return redirect()->route('albums.show',$album->id);
+        return redirect()->route('albums.index');
     }
 
     /**
@@ -78,8 +117,10 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Album $album)
     {
-        //
+        $album->delete();
+
+        return redirect()->route('main.index',);
     }
 }
