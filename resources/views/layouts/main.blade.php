@@ -83,7 +83,7 @@
 
 @yield('content')
 
-<div class="footer">
+{{--<div class="footer">--}}
 {{--    <div class="container">--}}
 {{--        <p class="float-right">--}}
 {{--            <a href="#">Back to top</a>--}}
@@ -91,15 +91,14 @@
 {{--        <p>Album example is © Bootstrap, but please download and customize it for yourself!</p>--}}
 {{--        <p>New to Bootstrap? <a href="../../">Visit the homepage</a> or read our <a href="../../getting-started/">getting started guide</a>.</p>--}}
 {{--    </div>--}}
-    <div class="navbar navbar-dark bg-dark box-shadow">
-        <div class="container d-flex justify-content-between" style="visibility: hidden;">
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </div>
-</div>
+{{--    <div class="navbar navbar-dark bg-dark box-shadow">--}}
+{{--        <div class="container d-flex justify-content-between" style="visibility: hidden;">--}}
+{{--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">--}}
+{{--                <span class="navbar-toggler-icon"></span>--}}
+{{--            </button>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
