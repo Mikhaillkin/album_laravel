@@ -48,13 +48,12 @@
 
         <div class="album py-5 bg-light">
             <div class="container">
-                <div class="row">
+                <div class="row" style="margin-bottom: 50px;">
 
                     @foreach($albums as $album)
                         @php
 //                            $randomOnePhoto = $album->photos->where('album_id',$album->id)->random(1);
                             $photosInAlbum = $album->photos->where('album_id',$album->id);
-                            $randomOnePhoto = NULL;
                             $albumIsEmpty = empty($photosInAlbum->toArray());
 
 //                            dd( $albumIsEmpty );
@@ -101,7 +100,13 @@
                         </div>
                     @endforeach
 
+
                 </div>
+               <div style="display: flex;justify-content: center">
+                   <div>
+                       {{ $albums->links() }}
+                   </div>
+               </div>
             </div>
         </div>
 
