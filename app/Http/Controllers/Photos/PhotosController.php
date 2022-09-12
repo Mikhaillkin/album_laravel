@@ -73,12 +73,13 @@ class PhotosController extends Controller
         foreach ($files as $file) {
             $image = Storage::disk('public')->put('/photos', $file);
             $album = Album::find($request->album_id);
+            $album_id = $request->album_id;
 
             if($image){
                 Photo::create([
                     'caption' => $file->getClientOriginalName(),
                     'image' => Storage::url($image),
-                    'album_id' => $request->album_id,
+                    'album_id' => $album_id,
                 ]);
 
             $album->update([ 'updated_at' => now() ]);
@@ -107,7 +108,7 @@ class PhotosController extends Controller
 //            return redirect()->back();
         };
 
-        return redirect()->back();
+        return redirect()->route('albums.show',$album_id);
     }
 
     /**
