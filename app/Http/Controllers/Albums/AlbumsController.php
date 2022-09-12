@@ -17,7 +17,7 @@ class AlbumsController extends Controller
      */
     public function index()
     {
-        $albums = Album::all();
+        $albums = Album::orderBy('updated_at','desc')->paginate(2);
         $randomPhoto = Photo::get();
 //        foreach($album->photos->where('album_id',$album->id)->random(1) as $photo) {};
 //        dd($albums);

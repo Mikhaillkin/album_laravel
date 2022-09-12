@@ -1,31 +1,34 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="csrf-token" content="{{csrf_token()}}" >
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+{{--<!doctype html>--}}
+{{--<html lang="en">--}}
+{{--<head>--}}
+{{--    <meta charset="utf-8">--}}
+{{--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--}}
+{{--    <meta name="description" content="">--}}
+{{--    <meta name="author" content="">--}}
+{{--    <meta name="csrf-token" content="{{csrf_token()}}" >--}}
+{{--    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">--}}
 
-    <title>Создание альбома</title>
+{{--    <title>Создание альбома</title>--}}
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+{{--    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">--}}
 
-    <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+{{--    <!-- Bootstrap core CSS -->--}}
+{{--    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">--}}
 
-    <!-- Custom styles for this template -->
-    <link href="form-validation.css" rel="stylesheet">
-</head>
+{{--    <!-- Custom styles for this template -->--}}
+{{--    <link href="form-validation.css" rel="stylesheet">--}}
+{{--</head>--}}
 
+@extends('layouts.main')
+
+@section('content')
 <body class="bg-light">
 
 <div class="container">
-    <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h2>Checkout form</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+{{--    <div class="py-5 text-center">--}}
+{{--        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">--}}
+{{--        <h2>Checkout form</h2>--}}
+{{--        <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>--}}
 {{--        @dd($albums)--}}
 {{--        <table class="table table-hover table-condensed" id="albums-table">--}}
 {{--            <thead class="d-flex justify-content-between">--}}
@@ -45,9 +48,9 @@
 {{--            @endforeach--}}
 {{--            </tbody>--}}
 {{--        </table>--}}
-    </div>
+{{--    </div>--}}
 
-    <div class="row">
+    <div class="row d-flex justify-content-center" style="padding-top: 20%;padding-bottom: 21%;">
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Создание албома</h4>
 {{--            <form action="{{route('albums.store')}}" method="POST" class="needs-validation" novalidate id="add_album" >--}}
@@ -70,20 +73,20 @@
                 </div>
 
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Создать</button>
+                <button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Создать</button>
                 <a href="{{ route('albums.index') }}" class="btn btn-primary btn-lg btn-block">Вернуться на  Главную</a>
             </form>
         </div>
     </div>
 
-    <footer class="my-5 pt-5 text-muted text-center text-small">
-        <p class="mb-1">&copy; 2017-2018 Company Name</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Privacy</a></li>
-            <li class="list-inline-item"><a href="#">Terms</a></li>
-            <li class="list-inline-item"><a href="#">Support</a></li>
-        </ul>
-    </footer>
+{{--    <footer class="my-5 pt-5 text-muted text-center text-small">--}}
+{{--        <p class="mb-1">&copy; 2017-2018 Company Name</p>--}}
+{{--        <ul class="list-inline">--}}
+{{--            <li class="list-inline-item"><a href="#">Privacy</a></li>--}}
+{{--            <li class="list-inline-item"><a href="#">Terms</a></li>--}}
+{{--            <li class="list-inline-item"><a href="#">Support</a></li>--}}
+{{--        </ul>--}}
+{{--    </footer>--}}
 </div>
 
 <!-- Bootstrap core JavaScript
@@ -154,4 +157,5 @@
     })();
 </script>
 </body>
-</html>
+@endsection
+{{--</html>--}}

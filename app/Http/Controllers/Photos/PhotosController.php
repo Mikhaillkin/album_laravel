@@ -75,6 +75,7 @@ class PhotosController extends Controller
 
         $file = $request->file('image');
         $image = Storage::disk('public')->put('/photos', $file);
+        $album = Album::find($request->album_id);
 
         if($image){
             Photo::create([
@@ -83,6 +84,8 @@ class PhotosController extends Controller
                 'image' => Storage::url($image),
                 'album_id' => $request->album_id,
             ]);
+
+            $album->update([ 'updated_at' => now() ]);
 
             return response()->json(['code'=>1,'msg'=>'New image has been saved successfully']);
         };
@@ -128,8 +131,11 @@ class PhotosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Photo $photo)
     {
-        //
+        $photo->delete();
+
+//        return response()->json(['code'=>1,'msg'=>'Photo has been deleted successfully']);
+        return redirect()->back();
     }
 }
