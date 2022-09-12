@@ -154,7 +154,7 @@ class PhotosController extends Controller
     {
         $photo->delete();
 
-//        return response()->json(['code'=>1,'msg'=>'Photo has been deleted successfully']);
-        return redirect()->back();
+        return response()->json(['code'=>1,'msg'=>'Photo has been deleted successfully']);
+//        return redirect()->back();
     }
 }

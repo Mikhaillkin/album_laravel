@@ -42,7 +42,7 @@
                 <a href="{{ route('albums.create') }}" class="btn btn-primary my-2">Создать альбом</a>
 
                 {{--                <a href="#" class="btn btn-secondary my-2">Secondary action</a>--}}
-                </p>
+{{--                </p>--}}
             </div>
         </section>
 
