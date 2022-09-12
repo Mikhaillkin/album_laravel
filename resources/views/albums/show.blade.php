@@ -7,7 +7,7 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">Страица альбома "{{ $album->title }}"</h1>
+            <h1 class="jumbotron-heading">Страница альбома "{{ $album->title }}"</h1>
             <p class="lead text-muted">Описание: {{ $album->description }}</p>
             <p>
 {{--                @dd($album->id)--}}
@@ -21,33 +21,42 @@
 
             <div class="row">
 
-                @foreach($photos as $photo)
-                    <div class="col-md-4">
-                        <div class="card mb-4 box-shadow">
-{{--                            <img class="card-img-top" src="{{ 'http://127.0.0.1:8000/' . 'public/storage/' . $photo->image }}" alt="Card image cap">--}}
-                            <img class="card-img-top" style="height: 225px; width: 100%; display: block;" src="{{ $photo->image }}" alt="Card image cap">
-                            <div class="card-body d-flex justify-content-between">
-                                <p class="card-text" style="margin-bottom: 0; text-align: center;display: flex;align-items: center">{{ $photo->caption }}</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="{{ route('photos.destroy',$photo->id) }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="border-0 bg-transparent btn btn-sm btn-outline-secondary" type="submit">Delete Photo</button>
-                                        </form>
+                @if( !empty($photos) )
+                    @foreach($photos as $photo)
+                        <div class="col-md-4">
+                            <div class="card mb-4 box-shadow">
+                                {{--                            <img class="card-img-top" src="{{ 'http://127.0.0.1:8000/' . 'public/storage/' . $photo->image }}" alt="Card image cap">--}}
+                                <img class="card-img-top" style="height: 225px; width: 100%; display: block;" src="{{ $photo->image }}" alt="Card image cap">
+                                <div class="card-body d-flex justify-content-between">
+                                    <p class="card-text" style="margin-bottom: 0; text-align: center;display: flex;align-items: center">{{ $photo->caption }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="{{ route('photos.destroy',$photo->id) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="border-0 bg-transparent btn btn-sm btn-outline-secondary" type="submit">Delete Photo</button>
+                                            </form>
+                                        </div>
                                     </div>
+                                    {{--                                <div class="d-flex justify-content-between align-items-center">--}}
+                                    {{--                                    <div class="btn-group">--}}
+                                    {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>--}}
+                                    {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>--}}
+                                    {{--                                    </div>--}}
+                                    {{--                                    <small class="text-muted">9 mins</small>--}}
+                                    {{--                                </div>--}}
                                 </div>
-{{--                                <div class="d-flex justify-content-between align-items-center">--}}
-{{--                                    <div class="btn-group">--}}
-{{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>--}}
-{{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>--}}
-{{--                                    </div>--}}
-{{--                                    <small class="text-muted">9 mins</small>--}}
-{{--                                </div>--}}
                             </div>
                         </div>
+                    @endforeach
+                @else
+                    <div class="row">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <h5 class="mb-5" data-aos="fade-up">В данном албоме пока нет фотографий</h5>
+                        </div>
                     </div>
-                @endforeach
+                @endif
+
 
             </div>
         </div>
