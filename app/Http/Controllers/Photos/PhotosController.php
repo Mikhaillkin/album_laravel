@@ -43,6 +43,9 @@ class PhotosController extends Controller
      */
     public function store(Request $request)
     {
+
+//        dd($request->file('images'));
+
         //        $validator = Validator::make($request->all(),[
 //            'image' => 'required|image',
 //            'caption' => 'required|string'
@@ -64,31 +67,47 @@ class PhotosController extends Controller
 //        }
 //        dd($request->caption);
 //        dd($request->file('image'));
+//        $path = 'public/photos/';
 
-        $path = 'public/photos/';
+        $files = $request->file('images');
+        foreach ($files as $file) {
+            $image = Storage::disk('public')->put('/photos', $file);
+            $album = Album::find($request->album_id);
 
+            if($image){
+                Photo::create([
+                    'caption' => $file->getClientOriginalName(),
+                    'image' => Storage::url($image),
+                    'album_id' => $request->album_id,
+                ]);
+
+            $album->update([ 'updated_at' => now() ]);
+
+        }
 
 //        $file = $request->file('image');
 //        $file_name = time().'_'.$file->getClientOriginalName();
 //
 //        $image = $file->storeAs($path,$file_name);
 
-        $file = $request->file('image');
-        $image = Storage::disk('public')->put('/photos', $file);
-        $album = Album::find($request->album_id);
-
-        if($image){
-            Photo::create([
-                'caption' => $request->caption,
-//                'image' => $image,
-                'image' => Storage::url($image),
-                'album_id' => $request->album_id,
-            ]);
-
-            $album->update([ 'updated_at' => now() ]);
-
-            return response()->json(['code'=>1,'msg'=>'New image has been saved successfully']);
+//        $file = $request->file('image');
+//        $image = Storage::disk('public')->put('/photos', $file);
+//        $album = Album::find($request->album_id);
+//
+//        if($image){
+//            Photo::create([
+//                'caption' => $request->caption,
+//                'image' => Storage::url($image),
+//                'album_id' => $request->album_id,
+//            ]);
+//
+//            $album->update([ 'updated_at' => now() ]);
+//
+////            return response()->json(['code'=>1,'msg'=>'New image has been saved successfully']);
+//            return redirect()->back();
         };
+
+        return redirect()->back();
     }
 
     /**
