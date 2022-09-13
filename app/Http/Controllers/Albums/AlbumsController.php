@@ -17,12 +17,12 @@ class AlbumsController extends Controller
      */
     public function index()
     {
-        $albums = Album::orderBy('updated_at','desc')->paginate(10);
+        $albums = Album::where('user_id',Auth::user()->id)->orderBy('updated_at','desc')->paginate(10);
         $randomPhoto = Photo::get();
 //        foreach($album->photos->where('album_id',$album->id)->random(1) as $photo) {};
 //        dd($albums);
 
-        return view('main.index',compact('albums','randomPhoto'));
+        return view('albums.index',compact('albums','randomPhoto'));
     }
 
     /**
@@ -75,8 +75,11 @@ class AlbumsController extends Controller
      */
     public function show(Album $album)
     {
-        $photos = Photo::where('album_id', $album->id)->get()->all();
-        return view('albums.show', compact('album','photos'));
+        $photos = Photo::with('album')->where('album_id', $album->id)->get()->all();
+
+        $AuthorizedUserId = Auth::user()->id;
+
+        return view('albums.show', compact('album','photos','AuthorizedUserId'));
     }
 
     /**

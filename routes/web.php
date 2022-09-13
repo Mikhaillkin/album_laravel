@@ -18,7 +18,7 @@ require __DIR__.'/auth.php';
 |
 */
 
-Route::get('/', [MainController::class,'index'])->middleware(['auth'])->name('main.index');
+Route::get('/', [MainController::class,'index'])->name('main.index');
 
 
 Route::get('/dashboard', function() {

@@ -31,15 +31,18 @@
                                             style="margin-bottom: 0; text-align: center;display: flex;align-items: center;overflow: hidden;">
                                         {{ $photo->caption }}
                                     </p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="#" method="DELETE" data-photoid="{{$photo->id}}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="border-0 bg-transparent btn btn-sm btn-outline-secondary" type="submit">Delete Photo</button>
-                                            </form>
+                                    @if ( $photo->album->user_id == $AuthorizedUserId)
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="#" method="DELETE" data-photoid="{{$photo->id}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="border-0 bg-transparent btn btn-sm btn-outline-secondary" type="submit">Delete Photo</button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
+
                                     {{--                                <div class="d-flex justify-content-between align-items-center">--}}
                                     {{--                                    <div class="btn-group">--}}
                                     {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>--}}
