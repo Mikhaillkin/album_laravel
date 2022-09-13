@@ -49,18 +49,25 @@
                     <h4 class="text-white">Меню</h4>
                     <p class="text-muted">
                         <ul class="list-unstyled d-flex justify-content-between align-items-center">
-                            <li><a href="{{ route('albums.index') }}" class="text-white">Главная</a></li>
-                            <li><a href="{{ route('dashboard') }}" class="text-white">Личный кабинет</a></li>
-                            <li><a href="{{ route('albums.create') }}" class="text-white">Создать альбом</a></li>
-                            <form method="POST"  action="{{ route('logout') }}">
-                                @csrf
+                            @auth
+                                <li><a href="{{ route('main.index') }}" class="text-white">Главная</a></li>
+                                {{--                            <li><a href="{{ route('dashboard') }}" class="text-white">Личный кабинет</a></li>--}}
+                                <li><a href="{{ route('albums.index') }}" class="text-white">Мои альбомы</a></li>
+                                <li><a href="{{ route('albums.create') }}" class="text-white">Создать альбом</a></li>
+                                <form method="POST"  action="{{ route('logout') }}">
+                                    @csrf
 
-                                <a href="{{ route('logout') }}"
-                                                       onclick="event.preventDefault();
-                                                this.closest('form').submit();" class="text-white">
-                                    {{ __('Выйти') }}
-                                <a>
-                            </form>
+                                    <a href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                    this.closest('form').submit();" class="text-white">
+                                        {{ __('Выйти') }}
+                                        <a>
+                                </form>
+                            @endauth
+                        @guest
+                                <li><a href="{{ route('main.index') }}" class="text-white">Главная</a></li>
+                                <li><a href="{{ route('login') }}" class="text-white">Войти</a></li>
+                        @endguest
                         </ul>
                     </p>
                 </div>

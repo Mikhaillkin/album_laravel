@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\Album;
+use App\Models\Photo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
@@ -14,7 +17,18 @@ class MainController extends Controller
      */
     public function index()
     {
-        return redirect()->route('albums.index');
+        $albums = Album::orderBy('updated_at','desc')->paginate(10);
+        $randomPhoto = Photo::get();
+
+
+        if(Auth::user()) {
+//            return redirect()->route('albums.index');
+            return view('main.index',compact('albums','randomPhoto'));
+        } else {
+//            dd(Auth::user());
+            return view('main.index',compact('albums','randomPhoto'));
+        }
+//        return 11111111;
     }
 
     /**

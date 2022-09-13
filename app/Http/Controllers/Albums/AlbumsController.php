@@ -17,12 +17,12 @@ class AlbumsController extends Controller
      */
     public function index()
     {
-        $albums = Album::orderBy('updated_at','desc')->paginate(10);
+        $albums = Album::where('user_id',Auth::user()->id)->orderBy('updated_at','desc')->paginate(10);
         $randomPhoto = Photo::get();
 //        foreach($album->photos->where('album_id',$album->id)->random(1) as $photo) {};
 //        dd($albums);
 
-        return view('main.index',compact('albums','randomPhoto'));
+        return view('albums.index',compact('albums','randomPhoto'));
     }
 
     /**
