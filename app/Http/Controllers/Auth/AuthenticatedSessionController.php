@@ -34,11 +34,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $albums = Album::orderBy('updated_at','desc')->paginate(10);
-        $randomPhoto = Photo::get();
+//        $albums = Album::orderBy('updated_at','desc')->paginate(10);
+//        $randomPhoto = Photo::get();
 
-//        return redirect()->intended(RouteServiceProvider::HOME);
-        return view('main.index',compact('albums','randomPhoto'));
+
+
+        return redirect()->intended(RouteServiceProvider::HOME);
+//        return view('main.index',compact('albums','randomPhoto'));
     }
 
     /**

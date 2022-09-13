@@ -39,7 +39,9 @@
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Список всех альбомов на сайте</h1>
-                <a href="{{ route('albums.create') }}" class="btn btn-primary my-2">Создать альбом</a>
+                @auth
+                    <a href="{{ route('albums.create') }}" class="btn btn-primary my-2">Создать альбом</a>
+                @endauth
 
                 {{--                <a href="#" class="btn btn-secondary my-2">Secondary action</a>--}}
 {{--                </p>--}}
@@ -86,13 +88,17 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <a href="{{ route('albums.show',$album->id) }}" type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center">View</a>
-                                            <a href="{{ route('albums.edit',$album->id) }}" type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center">Edit</a>
-                                            {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>--}}
-                                            <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="{{ route('albums.destroy',$album->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="border-0 bg-transparent btn btn-sm btn-outline-secondary" type="submit">Delete</button>
-                                            </form>
+                                            @auth
+                                                @if ( $album->user_id == $AuthorizedUserId)
+                                                    <a href="{{ route('albums.edit',$album->id) }}" type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center">Edit</a>
+                                                    {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>--}}
+                                                    <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="{{ route('albums.destroy',$album->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="border-0 bg-transparent btn btn-sm btn-outline-secondary" type="submit">Delete</button>
+                                                    </form>
+                                                @endif
+                                            @endauth
                                         </div>
                                     </div>
                                 </div>

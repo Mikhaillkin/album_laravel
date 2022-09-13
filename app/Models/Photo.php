@@ -10,4 +10,8 @@ class Photo extends Model
     use HasFactory;
     protected $table = 'photos';
     protected $guarded = false;
+
+    public function album() {
+        return $this->belongsTo(Album::class, 'album_id','id');
+    }
 }

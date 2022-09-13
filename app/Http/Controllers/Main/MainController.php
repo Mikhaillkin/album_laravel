@@ -17,16 +17,17 @@ class MainController extends Controller
      */
     public function index()
     {
-        $albums = Album::orderBy('updated_at','desc')->paginate(10);
+        $albums = Album::with('photos')->orderBy('updated_at','desc')->paginate(10);
         $randomPhoto = Photo::get();
 
-
+        $AuthorizedUserId = 0;
         if(Auth::user()) {
 //            return redirect()->route('albums.index');
-            return view('main.index',compact('albums','randomPhoto'));
+            $AuthorizedUserId = Auth::user()->id;
+            return view('main.index',compact('albums','randomPhoto','AuthorizedUserId'));
         } else {
 //            dd(Auth::user());
-            return view('main.index',compact('albums','randomPhoto'));
+            return view('main.index',compact('albums','randomPhoto', 'AuthorizedUserId'));
         }
 //        return 11111111;
     }
