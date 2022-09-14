@@ -28,4 +28,13 @@ class UpdateAlbum extends FormRequest
             'description' => 'required|string',
         ];
     }
+
+    public function messages() {
+        return [
+            'title.required' => 'Это поле не должно быть пустым',
+            'title.string' => 'Это поле должно быть строкой',
+            'description.required' => 'Это поле не должно быть пустым',
+            'description.string' => 'Это поле должно быть строкой',
+        ];
+    }
 }

@@ -102,7 +102,7 @@
                     //     $(form)[0].reset();
                     //     alert(data.msg);
                     // }
-                    $(form)[0].reset();
+                    // $(form)[0].reset();
                     alert(data.msg);
                 },
                 error: function (data) {
