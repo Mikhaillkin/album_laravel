@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Albums;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Album\StoreAlbum;
+use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
 use App\Models\Photo;
 use Illuminate\Http\Request;
@@ -123,7 +124,7 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Album $album)
+    public function update(UpdateAlbum $request,Album $album)
     {
 
         $data = [
@@ -134,7 +135,8 @@ class AlbumsController extends Controller
 //        dd($album);
         $album->update($data);
 //        return redirect()->route('albums.show',$album->id);
-        return redirect()->route('albums.index');
+//        return redirect()->route('albums.index');
+        return response()->json(['code'=>1,'msg'=>'Album has been updated successfully']);
     }
 
     /**
