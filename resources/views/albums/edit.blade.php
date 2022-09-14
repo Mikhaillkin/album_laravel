@@ -37,12 +37,13 @@
     <div class="row d-flex justify-content-center" style="padding-top: 20%;padding-bottom: 21%;">
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Редактирование албома</h4>
-            <form action="{{route('albums.update',$album->id)}}" method="POST" class="needs-validation" novalidate>
+            <form action="{{route('albums.update',$album->id)}}" method="POST" class="needs-validation" novalidate data-albumid="{{$album->id}}" id="edit_album">
                 @csrf
                 @method('PATCH')
                 <div class="mb-3">
                     <label for="title">Название</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Введите название альбома" required value="{{ $album->title }}">
+                    <span class="text-danger error-text title_error" ></span>
 {{--                    <div class="invalid-feedback">--}}
 {{--                        Please enter your shipping address.--}}
 {{--                    </div>--}}
@@ -51,6 +52,7 @@
                 <div class="mb-3">
                     <label for="description">Описание</label>
                     <input type="text" class="form-control" id="description" name="description" placeholder="Введите описание альбома" required value="{{ $album->description }}">
+                    <span class="text-danger error-text description_error" ></span>
 {{--                    <div class="invalid-feedback">--}}
 {{--                        Please enter your shipping address.--}}
 {{--                    </div>--}}
@@ -69,12 +71,54 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+
 <script src="../../assets/js/vendor/popper.min.js"></script>
 <script src="../../dist/js/bootstrap.min.js"></script>
 <script src="../../assets/js/vendor/holder.min.js"></script>
 <script>
+    $(document).ready(function() {
+
+        $('#edit_album').on('submit', function(e) {
+            e.preventDefault();
+            var form = this;
+
+            $.ajax({
+                url:"/albums/"+$(this).data('albumid'),
+                method: "POST",
+                data: new FormData(form),
+                processData:false,
+                dataType: 'json',
+                contentType: false,
+                beforeSend: function () {
+                    $(form).find('span.error-text').text('');
+                },
+                success: function (data) {
+                    // if(data.code == 0) {
+                    //     $.each(data.error, function(prefix,val) {
+                    //        $(form).find('span.'+prefix+'_error').text(val[0]);
+                    //     });
+                    // }else {
+                    //     $(form)[0].reset();
+                    //     alert(data.msg);
+                    // }
+                    // $(form)[0].reset();
+                    alert(data.msg);
+                },
+                error: function (data) {
+                    // console.log(data.responseJSON.errors);
+                    if(data.hasOwnProperty('responseJSON') &&  data.responseJSON.hasOwnProperty('errors')) {}
+                    $.each(data.responseJSON.errors, function(prefix,val) {
+                        $(form).find('span.'+prefix+'_error').text(val[0]);
+                    });
+                }
+            })
+        });
+
+    });
+
+
+
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
         'use strict';

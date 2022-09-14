@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Albums;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Album\StoreAlbum;
+use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
 use App\Models\Photo;
 use Illuminate\Http\Request;
@@ -42,14 +44,37 @@ class AlbumsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreAlbum $request)
     {
+//        dd(111);
+
         $data = [
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => Auth::user()->id,
         ];
         Album::create($data);
+
+        return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
+//        if(!$validated->passes()) {
+//            return response()->json(['code'=>0,'error'=>$validated->errors()->toArray()]);
+//        } else {
+//            $data = [
+//                'title' => $request->title,
+//                'description' => $request->description,
+//                'user_id' => Auth::user()->id,
+//            ];
+//            Album::create($data);
+//
+//            return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
+//
+//        }
+
+
+
+
+
+
 //        $albums = Album::all();
 
 
@@ -64,7 +89,6 @@ class AlbumsController extends Controller
 
 //        return redirect(route( 'albums.index'));
 //        return view('albums.create',compact('albums'));
-        return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
     }
 
     /**
@@ -100,7 +124,7 @@ class AlbumsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Album $album)
+    public function update(UpdateAlbum $request,Album $album)
     {
 
         $data = [
@@ -111,7 +135,8 @@ class AlbumsController extends Controller
 //        dd($album);
         $album->update($data);
 //        return redirect()->route('albums.show',$album->id);
-        return redirect()->route('albums.index');
+//        return redirect()->route('albums.index');
+        return response()->json(['code'=>1,'msg'=>'Album has been updated successfully']);
     }
 
     /**

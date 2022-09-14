@@ -59,17 +59,20 @@
                 <div class="mb-3">
                     <label for="title">Название</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Введите название альбома" required>
-{{--                    <div class="invalid-feedback">--}}
-{{--                        Please enter your shipping address.--}}
-{{--                    </div>--}}
+                    <span class="text-danger error-text title_error" ></span>
+{{--                    @error('title')--}}
+{{--                        <div class="text-danger">{{ $message }}</div>--}}
+{{--                    @enderror--}}
+
                 </div>
 
                 <div class="mb-3">
                     <label for="description">Описание</label>
                     <input type="text" class="form-control" id="description" name="description" placeholder="Введите описание альбома" required>
-{{--                    <div class="invalid-feedback">--}}
-{{--                        Please enter your shipping address.--}}
-{{--                    </div>--}}
+                    <span class="text-danger error-text description_error" ></span>
+                    {{--                    @error('description')--}}
+{{--                        <div class="text-danger">{{ $message }}</div>--}}
+{{--                    @enderror--}}
                 </div>
 
                 <hr class="mb-4">
@@ -112,9 +115,9 @@
                 processData:false,
                 dataType: 'json',
                 contentType: false,
-                // beforeSend: function () {
-                //     $(form).find('span.error-text').text('');
-                // },
+                beforeSend: function () {
+                    $(form).find('span.error-text').text('');
+                },
                 success: function (data) {
                     // if(data.code == 0) {
                     //     $.each(data.error, function(prefix,val) {
@@ -125,8 +128,18 @@
                     //     alert(data.msg);
                     // }
 
-                    $(form)[0].reset();
+
+                    // $(form)[0].reset();
                     alert(data.msg);
+                },
+                error: function (data) {
+                    // console.log(data.responseJSON.errors);
+                    if(data.hasOwnProperty('responseJSON') &&  data.responseJSON.hasOwnProperty('errors')) {
+
+                        $.each(data.responseJSON.errors, function(prefix,val) {
+                            $(form).find('span.'+prefix+'_error').text(val[0]);
+                        });
+                    }
                 }
             })
         });

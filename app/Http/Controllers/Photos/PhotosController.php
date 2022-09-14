@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Photos;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Photo\StorePhoto;
 use App\Models\Album;
 use App\Models\Photo;
 use Illuminate\Http\Request;
@@ -41,7 +42,7 @@ class PhotosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePhoto $request)
     {
 
 //        dd($request->file('images'));
@@ -108,7 +109,8 @@ class PhotosController extends Controller
 //            return redirect()->back();
         };
 
-        return redirect()->route('albums.show',$album_id);
+//        return redirect()->route('albums.show',$album_id);
+        return response()->json(['code'=>1,'msg'=>'Photos has been uploaded successfully']);
     }
 
     /**
