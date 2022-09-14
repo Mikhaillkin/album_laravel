@@ -134,10 +134,12 @@
                 },
                 error: function (data) {
                     // console.log(data.responseJSON.errors);
-                    if(data.hasOwnProperty('responseJSON') &&  data.responseJSON.hasOwnProperty('errors')) {}
-                    $.each(data.responseJSON.errors, function(prefix,val) {
-                        $(form).find('span.'+prefix+'_error').text(val[0]);
-                    });
+                    if(data.hasOwnProperty('responseJSON') &&  data.responseJSON.hasOwnProperty('errors')) {
+
+                        $.each(data.responseJSON.errors, function(prefix,val) {
+                            $(form).find('span.'+prefix+'_error').text(val[0]);
+                        });
+                    }
                 }
             })
         });
