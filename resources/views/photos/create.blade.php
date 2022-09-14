@@ -128,9 +128,11 @@
                     //     alert(data.msg);
                     // }
 
-
+                    // console.log(data.album_id);
+                    // alert(data);
                     $(form)[0].reset();
                     alert(data.msg);
+                    $(location).attr('href','http://localhost/albums/'+data.album_id);
                 },
                 error: function (data) {
                     // console.log(data.responseJSON.errors);

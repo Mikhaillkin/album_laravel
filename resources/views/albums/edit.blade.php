@@ -59,7 +59,7 @@
                 </div>
 
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Сохранить</button>
+                <button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Сохранить</button>
                 <a href="{{ route('albums.index') }}" class="btn btn-primary btn-lg btn-block">Вернуться на Главную</a>
             </form>
         </div>
