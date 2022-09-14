@@ -76,7 +76,7 @@ class PhotosController extends Controller
             $album = Album::find($request->album_id);
             $album_id = $request->album_id;
 
-            if($image){
+            if($image && is_numeric($album_id)){
                 Photo::create([
                     'caption' => $file->getClientOriginalName(),
                     'image' => Storage::url($image),
