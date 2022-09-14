@@ -138,7 +138,7 @@
                     // console.log(data.responseJSON.errors);
                     if(data.hasOwnProperty('responseJSON') &&  data.responseJSON.hasOwnProperty('errors')) {}
                     $.each(data.responseJSON.errors, function(prefix,val) {
-                        if(prefix.includes('.')) {
+                        if(prefix.includes('images.')) {
                             $(form).find('span.images_error').text('Вы можете загружать только файлы формата: jpg,jpeg,bmp,png,gif');
                         } else {
                             // alert(prefix);
