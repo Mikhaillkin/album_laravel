@@ -131,6 +131,7 @@
 
                     // $(form)[0].reset();
                     alert(data.msg);
+                    $(location).attr('href', '{{ route('albums.index') }}');
                 },
                 error: function (data) {
                     // console.log(data.responseJSON.errors);
