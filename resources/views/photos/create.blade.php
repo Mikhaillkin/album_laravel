@@ -1,41 +1,15 @@
-{{--<!doctype html>--}}
-{{--<html lang="en">--}}
-{{--<head>--}}
-{{--    <meta charset="utf-8">--}}
-{{--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--}}
-{{--    <meta name="description" content="">--}}
-{{--    <meta name="author" content="">--}}
-{{--    <meta name="csrf-token" content="{{csrf_token()}}" >--}}
-{{--    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">--}}
-
-{{--    <title>Создание альбома</title>--}}
-
-{{--    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">--}}
-
-{{--    <!-- Bootstrap core CSS -->--}}
-{{--    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">--}}
-
-{{--    <!-- Custom styles for this template -->--}}
-{{--    <link href="form-validation.css" rel="stylesheet">--}}
-{{--</head>--}}
 
 @extends('layouts.main')
 
 @section('content')
 
-<body class="bg-light"
-{{--      style="height: 1000px;"--}}
->
+<body class="bg-light">
 
-<div class="container mb-0 d-flex justify-content-center align-items-center" style="padding-top: 10%;">
+<div class="container">
 
-    <div style="display: flex;justify-content: center;align-items: center;">
+    <div class="row d-flex justify-content-center" style="padding-top: 20%;padding-bottom: 21%;">
         <div class="col-md-8 order-md-1">
-            <h4 style="margin-bottom: 50px;display: flex;justify-content: center;">
-                <div>
-                    <strong>Добавьте фотографии в альбом</strong>
-                </div>
-            </h4>
+            <h4 class="mb-3">Добавьте фотографии в альбом</h4>
             <p class="mb-3" style="text-align: center;">Вы можете добавить сразу несколько фотографий.Выделите их и нажмите кнопку добавить.</p>
             <form action="#" method="POST" novalidate id="add_photo" enctype="multipart/form-data">
                 @csrf
@@ -48,12 +22,11 @@
                 <input type="hidden" name="album_id" value="{{ $album_id }}" required>
 
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Добавить</button>
+                <button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Добавить</button>
                 <a href="{{ route('albums.index') }}" class="btn btn-primary btn-lg btn-block">Вернуться на Главную</a>
             </form>
         </div>
     </div>
-
 
 </div>
 
@@ -141,4 +114,3 @@
 </body>
 
 @endsection
-{{--</html>--}}
