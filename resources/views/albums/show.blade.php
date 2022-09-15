@@ -10,7 +10,6 @@
             <h1 class="jumbotron-heading">Страница альбома "{{ $album->title }}"</h1>
             <p class="lead text-muted">Описание: {{ $album->description }}</p>
             <p>
-{{--                @dd($album->id)--}}
                 @if ( $album->user_id == $AuthorizedUserId)
                     <a href="{{ route('photos.create',['album_id' => $album->id]) }}" class="btn btn-primary my-2">Добавить фотографию</a>
                 @endif
@@ -44,14 +43,6 @@
                                             </div>
                                         </div>
                                     @endif
-
-                                    {{--                                <div class="d-flex justify-content-between align-items-center">--}}
-                                    {{--                                    <div class="btn-group">--}}
-                                    {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>--}}
-                                    {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>--}}
-                                    {{--                                    </div>--}}
-                                    {{--                                    <small class="text-muted">9 mins</small>--}}
-                                    {{--                                </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -81,17 +72,10 @@
     </div>
 </footer>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-{{--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--}}
-{{--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>--}}
 
-{{--<script src="../../assets/js/vendor/popper.min.js"></script>--}}
 <script src="/dist/js/bootstrap.min.js"></script>
-{{--<script src="../../assets/js/vendor/holder.min.js"></script>--}}
 <script>
     $(document).ready(function() {
 
@@ -107,19 +91,7 @@
                 processData:false,
                 dataType: 'json',
                 contentType: false,
-                // beforeSend: function () {
-                //     $(form).find('span.error-text').text('');
-                // },
                 success: function (data) {
-                    // if(data.code == 0) {
-                    //     $.each(data.error, function(prefix,val) {
-                    //        $(form).find('span.'+prefix+'_error').text(val[0]);
-                    //     });
-                    // }else {
-                    //     $(form)[0].reset();
-                    //     alert(data.msg);
-                    // }
-
                     $(form)[0].reset();
                     alert(data.msg);
                     window.location.reload();
