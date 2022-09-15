@@ -15,27 +15,27 @@
 
     <!-- Bootstrap core CSS -->
     {{--    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">--}}
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     {{--    <link href="album.css" rel="stylesheet">--}}
-    <link href="album.css" rel="stylesheet">
+    <link href="/album.css" rel="stylesheet">
 
 
 
 {{--    Album Create--}}
     <meta name="csrf-token" content="{{csrf_token()}}" >
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+{{--    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">--}}
 
     <title>Создание альбома</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
 
     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="form-validation.css" rel="stylesheet">
+{{--    <link href="form-validation.css" rel="stylesheet">--}}
 
 </head>
 
@@ -61,7 +61,7 @@
                                        onclick="event.preventDefault();
                                                     this.closest('form').submit();" class="text-white">
                                         {{ __('Выйти') }}
-                                        <a>
+                                    <a>
                                 </form>
                             @endauth
                         @guest
@@ -115,11 +115,9 @@
 {{--<script src="../../assets/js/vendor/popper.min.js"></script>--}}
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
-<script src="assets/js/vendor/popper.min.js"></script>
-{{--<script src="../../dist/js/bootstrap.min.js"></script>--}}
-<script src="dist/js/bootstrap.min.js"></script>
-{{--<script src="../../assets/js/vendor/holder.min.js"></script>--}}
-<script src="assets/js/vendor/holder.min.js"></script>
+{{--<script src="assets/js/vendor/popper.min.js"></script>--}}
+<script src="/dist/js/bootstrap.min.js"></script>
+{{--<script src="assets/js/vendor/holder.min.js"></script>--}}
 
 
 <svg xmlns="http://www.w3.org/2000/svg" width="348" height="225" viewBox="0 0 348 225" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="17" style="font-weight:bold;font-size:17pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text></svg></body>
