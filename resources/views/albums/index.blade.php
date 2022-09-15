@@ -3,46 +3,10 @@
 
 @section('content')
     <main role="main">
-        {{--    <h1>Это главная страница альбомов</h1>--}}
-        {{--    <div class="d-flex justify-content-center">--}}
-        {{--        11111111111111111111--}}
-        {{--        <table class="table table-hover table-condensed" id="albums-table">--}}
-        {{--            <thead class="d-flex justify-content-between">--}}
-        {{--            <th>id</th>--}}
-        {{--            <th>Название</th>--}}
-        {{--            <th>Описание</th>--}}
-        {{--            <th>Автор</th>--}}
-        {{--            </thead>--}}
-        {{--            <tbody class="d-flex flex-column" >--}}
-        {{--            @foreach($albums as $album)--}}
-        {{--                <tr>--}}
-        {{--                    <td>{{ $album->id }}</td>--}}
-        {{--                    <td>{{ $album->title }}</td>--}}
-        {{--                    <td>{{ $album->description }}</td>--}}
-        {{--                    <td>{{ $album->user_id }}</td>--}}
-        {{--                    <td><a href="{{ route('albums.show',$album->id) }}"><strong>Подробнее</strong></a></td>--}}
-        {{--                    <td>--}}
-        {{--                        <form action="{{ route('albums.destroy',$album->id) }}" method="post">--}}
-        {{--                            @csrf--}}
-        {{--                            @method('DELETE')--}}
-        {{--                            <button type="submit"><strong>Удалить</strong></button>--}}
-        {{--                        </form>--}}
-        {{--                    </td>--}}
-
-        {{--                <tr/>--}}
-        {{--            @endforeach--}}
-        {{--            </tbody>--}}
-        {{--        </table>--}}
-        {{--        1111111111111111111111111111--}}
-        {{--    </div>--}}
-
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Список ваших альбомов</h1>
                 <a href="{{ route('albums.create') }}" class="btn btn-primary my-2">Создать альбом</a>
-
-                {{--                <a href="#" class="btn btn-secondary my-2">Secondary action</a>--}}
-                {{--                </p>--}}
             </div>
         </section>
 
@@ -52,25 +16,14 @@
 
                     @foreach($albums as $album)
                         @php
-                            //                            $randomOnePhoto = $album->photos->where('album_id',$album->id)->random(1);
-                                                        $photosInAlbum = $album->photos->where('album_id',$album->id);
-                                                        $albumIsEmpty = empty($photosInAlbum->toArray());
+                            $photosInAlbum = $album->photos->where('album_id',$album->id);
+                            $albumIsEmpty = empty($photosInAlbum->toArray());
 
-                            //                            dd( $albumIsEmpty );
-
-                                                        if( !$albumIsEmpty ) {
-                                                            $randomOnePhoto = $photosInAlbum->random(1)->toArray();
-                                                        } else {
-                                                            $randomOnePhoto = NULL;
-                                                        }
-                            //                            dd($randomOnePhoto);
-
-                            //                            if ( isset($randomOnePhoto) ) {
-                            //                                foreach ($randomOnePhoto as $photo) {
-                            //                                    $randomOnePhoto = $photo->image;
-                            //                                }
-                            //                            }
-
+                            if( !$albumIsEmpty ) {
+                                $randomOnePhoto = $photosInAlbum->random(1)->toArray();
+                            } else {
+                                $randomOnePhoto = NULL;
+                            }
                         @endphp
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">

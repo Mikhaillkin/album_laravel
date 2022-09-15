@@ -28,20 +28,3 @@ Route::get('/dashboard', function() {
 
 Route::resource('albums',AlbumsController::class)->middleware(['auth']);
 Route::resource('photos',PhotosController::class)->middleware(['auth']);
-
-
-
-
-
-//Route::group(['namespace' => 'Album','prefix'=>'albums'], function() {
-//    Route::get('/', [AlbumsController::class,'index'])->name('album.index');
-////    Route::get('/{album}', [AlbumsController::class,'show'])->name('album.show');
-//    Route::get('/add_album', [AlbumsController::class,'create'])->name('album.create');
-//});
-//Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-//Route::get('/', function () {
-//    return view('welcome');
-//});

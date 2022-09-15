@@ -30,14 +30,8 @@
 
 </div>
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-{{--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>--}}
-{{--<script src="../../assets/js/vendor/popper.min.js"></script>--}}
 <script src="/dist/js/bootstrap.min.js"></script>
-{{--<script src="../../assets/js/vendor/holder.min.js"></script>--}}
 <script>
     $(document).ready(function() {
 
@@ -56,17 +50,6 @@
                     $(form).find('span.error-text').text('');
                 },
                 success: function (data) {
-                    // if(data.code == 0) {
-                    //     $.each(data.error, function(prefix,val) {
-                    //        $(form).find('span.'+prefix+'_error').text(val[0]);
-                    //     });
-                    // }else {
-                    //     $(form)[0].reset();
-                    //     alert(data.msg);
-                    // }
-
-                    // console.log(data.album_id);
-                    // alert(data);
                     $(form)[0].reset();
                     alert(data.msg);
                     $(location).attr('href','http://localhost/albums/'+data.album_id);
@@ -78,7 +61,6 @@
                         if(prefix.includes('images.')) {
                             $(form).find('span.images_error').text('Вы можете загружать только файлы формата: jpg,jpeg,bmp,png,gif');
                         } else {
-                            // alert(prefix);
                             $(form).find('span.'+prefix+'_error').text(val[0]);
                         }
                     });
