@@ -9,7 +9,7 @@
 
     <div class="row d-flex justify-content-center" style="padding-top: 20%;padding-bottom: 21%;">
         <div class="col-md-8 order-md-1">
-            <h4 class="mb-3">Создание албома</h4>
+            <h4 class="mb-3">Создание альбома</h4>
             <form action="#" method="POST" class="needs-validation" novalidate id="add_album" >
                 @csrf
                 <div class="mb-3">
