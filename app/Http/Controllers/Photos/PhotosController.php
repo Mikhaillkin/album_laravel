@@ -9,7 +9,6 @@ use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-//use Illuminate\Validation\Validator;
 
 
 class PhotosController extends Controller
@@ -31,7 +30,6 @@ class PhotosController extends Controller
      */
     public function create(Request $request)
     {
-//        dd($request->album_id);
         $album_id = $request->album_id;
         return view('photos.create',compact('album_id'));
     }
@@ -45,30 +43,6 @@ class PhotosController extends Controller
     public function store(StorePhoto $request)
     {
 
-//        dd($request->file('images'));
-
-        //        $validator = Validator::make($request->all(),[
-//            'image' => 'required|image',
-//            'caption' => 'required|string'
-//        ]);
-//        dd($request->all());
-//        dd(1111111111111111);
-//        if(!$validator->passes()) {
-//            return response()->json(['code'=>0,'error'=>$validator->errors()->toArray()]);
-//        } else {
-//            $path = 'files/';
-//            $file = $request->file('image');
-//            $file_name = time().'_'.$file->getClientOriginalName();
-//
-//            $upload = $file->storeAs($path,$file_name);
-//
-//            if($upload){
-//                return response()->json(['code',1,'msg'=>'New image has been saved successfully']);
-//            };
-//        }
-//        dd($request->caption);
-//        dd($request->file('image'));
-//        $path = 'public/photos/';
 
         $files = $request->file('images');
         foreach ($files as $file) {
@@ -82,34 +56,10 @@ class PhotosController extends Controller
                     'image' => Storage::url($image),
                     'album_id' => $album_id,
                 ]);
-
             $album->update([ 'updated_at' => now() ]);
-
-        }
-
-//        $file = $request->file('image');
-//        $file_name = time().'_'.$file->getClientOriginalName();
-//
-//        $image = $file->storeAs($path,$file_name);
-
-//        $file = $request->file('image');
-//        $image = Storage::disk('public')->put('/photos', $file);
-//        $album = Album::find($request->album_id);
-//
-//        if($image){
-//            Photo::create([
-//                'caption' => $request->caption,
-//                'image' => Storage::url($image),
-//                'album_id' => $request->album_id,
-//            ]);
-//
-//            $album->update([ 'updated_at' => now() ]);
-//
-////            return response()->json(['code'=>1,'msg'=>'New image has been saved successfully']);
-//            return redirect()->back();
+            }
         };
 
-//        return redirect()->route('albums.show',$album_id);
         return response()->json(['code'=>1,'msg'=>'Photos has been uploaded successfully','album_id'=> $request->album_id]);
     }
 
@@ -158,6 +108,5 @@ class PhotosController extends Controller
         $photo->delete();
 
         return response()->json(['code'=>1,'msg'=>'Photo has been deleted successfully']);
-//        return redirect()->back();
     }
 }

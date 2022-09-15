@@ -7,7 +7,6 @@ use App\Http\Requests\Album\StoreAlbum;
 use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
 use App\Models\Photo;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
@@ -21,8 +20,7 @@ class AlbumsController extends Controller
     {
         $albums = Album::where('user_id',Auth::user()->id)->orderBy('updated_at','desc')->paginate(10);
         $randomPhoto = Photo::get();
-//        foreach($album->photos->where('album_id',$album->id)->random(1) as $photo) {};
-//        dd($albums);
+
 
         return view('albums.index',compact('albums','randomPhoto'));
     }
@@ -46,7 +44,6 @@ class AlbumsController extends Controller
      */
     public function store(StoreAlbum $request)
     {
-//        dd(111);
 
         $data = [
             'title' => $request->title,
@@ -56,39 +53,6 @@ class AlbumsController extends Controller
         Album::create($data);
 
         return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
-//        if(!$validated->passes()) {
-//            return response()->json(['code'=>0,'error'=>$validated->errors()->toArray()]);
-//        } else {
-//            $data = [
-//                'title' => $request->title,
-//                'description' => $request->description,
-//                'user_id' => Auth::user()->id,
-//            ];
-//            Album::create($data);
-//
-//            return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
-//
-//        }
-
-
-
-
-
-
-//        $albums = Album::all();
-
-
-//        Photo::create([
-//            'caption' => $request->caption,
-//            'image' => $upload,
-//            'album_id' => $request->album_id,
-//        ]);
-//
-//        return response()->json(['code'=>1,'msg'=>'New image has been saved successfully']);
-
-
-//        return redirect(route( 'albums.index'));
-//        return view('albums.create',compact('albums'));
     }
 
     /**
@@ -132,10 +96,7 @@ class AlbumsController extends Controller
             'description' => $request->description,
         ];
 
-//        dd($album);
         $album->update($data);
-//        return redirect()->route('albums.show',$album->id);
-//        return redirect()->route('albums.index');
         return response()->json(['code'=>1,'msg'=>'Album has been updated successfully']);
     }
 

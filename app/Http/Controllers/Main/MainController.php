@@ -22,14 +22,11 @@ class MainController extends Controller
 
         $AuthorizedUserId = 0;
         if(Auth::user()) {
-//            return redirect()->route('albums.index');
             $AuthorizedUserId = Auth::user()->id;
             return view('main.index',compact('albums','randomPhoto','AuthorizedUserId'));
         } else {
-//            dd(Auth::user());
             return view('main.index',compact('albums','randomPhoto', 'AuthorizedUserId'));
         }
-//        return 11111111;
     }
 
     /**
@@ -50,7 +47,7 @@ class MainController extends Controller
      */
     public function store(Request $request)
     {
-        dd(2);
+        //
     }
 
     /**
