@@ -41,7 +41,8 @@
                                             <a href="{{ route('albums.show',$album->id) }}" type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center">View</a>
                                             <a href="{{ route('albums.edit',$album->id) }}" type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center">Edit</a>
                                             {{--                                        <button type="button" class="btn btn-sm btn-outline-secondary">Delete</button>--}}
-                                            <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="{{ route('albums.destroy',$album->id) }}" method="post">
+{{--                                            <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="{{ route('albums.destroy',$album->id) }}" data-photoid="{{$album->id}}" method="post">--}}
+                                            <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="#" data-albumid="{{$album->id}}" method="DELETE">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="border-0 bg-transparent btn btn-sm btn-outline-secondary" type="submit">Delete</button>
@@ -64,4 +65,31 @@
         </div>
 
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('.album form').on('submit', function(e) {
+                e.preventDefault();
+
+                var form = this;
+
+                $.ajax({
+                    url:"/albums/"+$(this).data('albumid'),
+                    method: "POST",
+                    data: new FormData(form),
+                    processData:false,
+                    dataType: 'json',
+                    contentType: false,
+                    success: function (data) {
+                        $(form)[0].reset();
+                        alert(data.msg);
+                        window.location.reload();
+                    }
+                })
+            });
+
+        });
+    </script>
 @endsection

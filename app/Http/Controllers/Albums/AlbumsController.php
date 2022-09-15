@@ -110,6 +110,7 @@ class AlbumsController extends Controller
     {
         $album->delete();
 
-        return redirect()->route('main.index',);
+//        return redirect()->route('main.index',);
+        return response()->json(['code'=>1,'msg'=>'Album has been deleted successfully']);
     }
 }
