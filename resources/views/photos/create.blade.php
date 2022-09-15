@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{csrf_token()}}" >
-    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+{{--    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">--}}
 
     <title>Создание альбома</title>
 
@@ -98,9 +98,9 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 {{--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>--}}
-<script src="../../assets/js/vendor/popper.min.js"></script>
-<script src="../../dist/js/bootstrap.min.js"></script>
-<script src="../../assets/js/vendor/holder.min.js"></script>
+{{--<script src="../../assets/js/vendor/popper.min.js"></script>--}}
+<script src="/dist/js/bootstrap.min.js"></script>
+{{--<script src="../../assets/js/vendor/holder.min.js"></script>--}}
 <script>
     $(document).ready(function() {
 
