@@ -11,15 +11,26 @@
         <div class="col-md-8 order-md-1">
             <h4 class="mb-3">Добавьте фотографии в альбом</h4>
             <p class="mb-3" style="text-align: center;">Вы можете добавить сразу несколько фотографий.Выделите их и нажмите кнопку добавить.</p>
-            <form action="#" method="POST" novalidate id="add_photo" enctype="multipart/form-data">
+            <form action="#" method="POST" novalidate id="uploadImages" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="image">Фото</label>
-                    <input type="file" class="form-control" name="images[]" multiple required>
+                    <input type="file" class="form-control" id="addImages" name="images[]" multiple required>
                     <span class="text-danger error-text images_error" ></span>
                 </div>
-
                 <input type="hidden" name="album_id" value="{{ $album_id }}" required>
+
+                <ul id="uploadImagesList">
+                    <li class="item template">
+                        <span class="img-wrap">
+                            <img src="image.jpg" alt="Превьюшка">
+                        </span>
+                        <input type="text" name="captions[]" placeholder="Подпись">
+                        <span class="delete-link" title="Удалить">Удалить</span>
+                    </li>
+                </ul>
+
+                <div class="clear"></div>
 
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Добавить</button>
@@ -32,10 +43,64 @@
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script src="/dist/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function() {
 
-        $('#add_photo').on('submit', function(e) {
+
+<script>
+    jQuery(document).ready(function ($) {
+
+        var queue = {};
+        var form = $('form#uploadImages');
+        var imagesList = $('#uploadImagesList');
+
+        var itemPreviewTemplate = imagesList.find('.item.template').clone();
+        itemPreviewTemplate.removeClass('template');
+        imagesList.find('.item.template').remove();
+
+
+        $('#addImages').on('change', function () {
+            var files = this.files;
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+
+                preview(files[i]);
+            }
+
+            // this.value = '';
+        });
+
+        // Создание превью
+        function preview(file) {
+            var reader = new FileReader();
+            reader.addEventListener('load', function(event) {
+                var img = document.createElement('img');
+
+                var itemPreview = itemPreviewTemplate.clone();
+
+                itemPreview.find('.img-wrap img').attr('src', event.target.result);
+                itemPreview.data('id', file.name);
+
+                imagesList.append(itemPreview);
+
+                queue[file.name] = file;
+
+            });
+            reader.readAsDataURL(file);
+        }
+
+        // Удаление фотографий
+        imagesList.on('click', '.delete-link', function () {
+            var item = $(this).closest('.item'),
+                id = item.data('id');
+
+            delete queue[id];
+
+            item.remove();
+        });
+
+
+        // Отправка формы
+        $('#uploadImages').on('submit', function(e) {
             e.preventDefault();
             var form = this;
 
@@ -67,6 +132,16 @@
                 }
             })
         });
+
+    });
+
+</script>
+
+
+<script>
+    $(document).ready(function() {
+
+
 
     });
 
