@@ -108,6 +108,15 @@ class AlbumsController extends Controller
      */
     public function destroy(Album $album)
     {
+        $photos = Photo::with('album')->where('album_id', $album->id)->get()->all();
+
+        if(!empty($photos)) {
+            foreach ($photos as $photo) {
+                $photo->delete();
+            }
+        }
+
+
         $album->delete();
 
 //        return redirect()->route('main.index',);
