@@ -28,6 +28,38 @@
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
+
+
+
+    <style>
+        #uploadImagesList {
+            list-style: none;
+            padding: 0;
+        }
+        #uploadImagesList .item {
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+        #uploadImagesList .item .img-wrap {
+            width: inherit;
+            display: block;
+            height: 150px;
+        }
+        #uploadImagesList .item .img-wrap img{
+            width: auto;
+            height: inherit;
+        }
+        #uploadImagesList .item .delete-link {
+            cursor: pointer;
+            display: block;
+        }
+        .clear {
+            clear: both;
+        }
+    </style>
+{{--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--}}
+
 </head>
 
 <body>
