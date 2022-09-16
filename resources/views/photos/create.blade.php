@@ -22,15 +22,15 @@
 
                 <ul id="uploadImagesList">
                     <li class="item template">
-                        <span class="img-wrap">
-                            <img src="image.jpg" alt="Превьюшка">
+                        <span class="img-wrap" style="height: 225px; width: 100%; display: block;">
+                            <img src="image.jpg" alt="Превьюшка" style="border-radius: 15px;height: 225px; width: 100%; display: block;">
                         </span>
-                        <input type="text" name="captions[]" placeholder="Подпись">
-                        <span class="delete-link" title="Удалить">Удалить</span>
+                        <input type="text" name="captions[]" placeholder="Подпись" style="border-radius: 6px;margin-top: 5px;margin-bottom: 10px;width: 100%; display: block;">
+{{--                        <span class="delete-link" title="Удалить">Удалить</span>--}}
                     </li>
                 </ul>
 
-                <div class="clear"></div>
+{{--                <div class="clear"></div>--}}
 
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Добавить</button>
@@ -88,15 +88,15 @@
             reader.readAsDataURL(file);
         }
 
-        // Удаление фотографий
-        imagesList.on('click', '.delete-link', function () {
-            var item = $(this).closest('.item'),
-                id = item.data('id');
-
-            delete queue[id];
-
-            item.remove();
-        });
+        // // Удаление фотографий
+        // imagesList.on('click', '.delete-link', function () {
+        //     var item = $(this).closest('.item'),
+        //         id = item.data('id');
+        //
+        //     delete queue[id];
+        //
+        //     item.remove();
+        // });
 
 
         // Отправка формы
