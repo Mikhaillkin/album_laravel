@@ -25,7 +25,7 @@
                         <span class="img-wrap">
                             <img src="image.jpg" alt="Превьюшка">
                         </span>
-                        <input type="text" name="caption" placeholder="Подпись">
+                        <input type="text" name="captions[]" placeholder="Подпись">
                         <span class="delete-link" title="Удалить">Удалить</span>
                     </li>
                 </ul>
@@ -48,7 +48,6 @@
 <script>
     jQuery(document).ready(function ($) {
 
-        var maxFileSize = 2 * 1024 * 1024; // (байт) Максимальный размер файла (2мб)
         var queue = {};
         var form = $('form#uploadImages');
         var imagesList = $('#uploadImagesList');
@@ -64,20 +63,10 @@
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
 
-                if ( !file.type.match(/image\/(jpeg|jpg|png|gif)/) ) {
-                    alert( 'Фотография должна быть в формате jpg, png или gif' );
-                    continue;
-                }
-
-                if ( file.size > maxFileSize ) {
-                    alert( 'Размер фотографии не должен превышать 2 Мб' );
-                    continue;
-                }
-
                 preview(files[i]);
             }
 
-            this.value = '';
+            // this.value = '';
         });
 
         // Создание превью
@@ -111,38 +100,6 @@
 
 
         // Отправка формы
-        form.on('submit', function(event) {
-
-            var formData = new FormData(this);
-
-            for (var id in queue) {
-                formData.append('images[]', queue[id]);
-            }
-
-            $.ajax({
-                url: $(this).attr('action'),
-                type: 'POST',
-                data: formData,
-                async: true,
-                success: function (res) {
-                    alert(res)
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-            });
-
-            return false;
-        });
-
-    });
-
-</script>
-
-
-<script>
-    $(document).ready(function() {
-
         $('#uploadImages').on('submit', function(e) {
             e.preventDefault();
             var form = this;
@@ -175,6 +132,16 @@
                 }
             })
         });
+
+    });
+
+</script>
+
+
+<script>
+    $(document).ready(function() {
+
+
 
     });
 

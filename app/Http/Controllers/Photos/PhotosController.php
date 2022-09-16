@@ -45,18 +45,29 @@ class PhotosController extends Controller
 
 
         $files = $request->file('images');
-        foreach ($files as $file) {
+        $captions = $request->captions;
+
+//        dd($files);
+        foreach ($files as $key => $file) {
             $image = Storage::disk('public')->put('/photos', $file);
             $album = Album::find($request->album_id);
             $album_id = $request->album_id;
 
             if($image && isset($album_id) && is_numeric($album_id)){
-                Photo::create([
-                    'caption' => $file->getClientOriginalName(),
-                    'image' => Storage::url($image),
-                    'album_id' => $album_id,
-                ]);
-            $album->update([ 'updated_at' => now() ]);
+                if($captions[$key] !== NULL) {
+                    Photo::create([
+                        'caption' => $captions[$key],
+                        'image' => Storage::url($image),
+                        'album_id' => $album_id,
+                    ]);
+                } else {
+                    Photo::create([
+                        'caption' => $file->getClientOriginalName(),
+                        'image' => Storage::url($image),
+                        'album_id' => $album_id,
+                    ]);
+                }
+                $album->update([ 'updated_at' => now() ]);
             }
         };
 
