@@ -68,11 +68,11 @@ class AlbumsController extends Controller
      */
     public function show(Album $album)
     {
-        $photos = Photo::with('album')->where('album_id', $album->id)->get()->all();
+        $data = [];
+        $data['photos'] = Photo::with('album')->where('album_id', $album->id)->get()->all();
+        $data['album'] = $album;
 
-        $AuthorizedUserId = Auth::user()->id;
-
-        return view('albums.show', compact('album','photos','AuthorizedUserId'));
+        return view('albums.show', compact('data'));
     }
 
     /**
