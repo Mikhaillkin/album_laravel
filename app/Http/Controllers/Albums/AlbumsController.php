@@ -7,8 +7,12 @@ use App\Http\Requests\Album\StoreAlbum;
 use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
 use App\Models\Photo;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
@@ -32,7 +36,7 @@ class AlbumsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
@@ -43,17 +47,14 @@ class AlbumsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @param StoreAlbum $request
+     * @return JsonResponse
      */
     public function store(StoreAlbum $request)
     {
 
-        $data = [
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => Auth::user()->id,
-        ];
+        $data = $request->validated();
+        $data['user_id'] = Auth::user()->id;
         Album::create($data);
 
         return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
@@ -62,8 +63,8 @@ class AlbumsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Album $album
+     * @return View
      */
     public function show(Album $album)
     {
