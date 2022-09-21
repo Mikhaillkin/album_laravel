@@ -78,8 +78,8 @@ class AlbumsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Album $album
+     * @return View
      */
     public function edit(Album $album)
     {
@@ -89,19 +89,17 @@ class AlbumsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateAlbum $request
+     * @param Album $album
+     * @return JsonResponse
      */
     public function update(UpdateAlbum $request,Album $album)
     {
 
-        $data = [
-            'title' => $request->title,
-            'description' => $request->description,
-        ];
 
+        $data = $request->validated();
         $album->update($data);
+
         return response()->json(['code'=>1,'msg'=>'Album has been updated successfully']);
     }
 
