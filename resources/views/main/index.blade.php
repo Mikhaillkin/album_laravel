@@ -16,8 +16,9 @@
             <div class="container">
                 <div class="row" style="margin-bottom: 50px;">
 
-                    @foreach($albums as $album)
+                    @foreach($data['albums'] as $album)
                         @php
+                            $AuthorizedUserId = auth()->user()->id;
                             $photosInAlbum = $album->photos->where('album_id',$album->id);
                             $albumIsEmpty = empty($photosInAlbum->toArray());
 
@@ -66,7 +67,7 @@
                 </div>
                <div style="display: flex;justify-content: center">
                    <div>
-                       {{ $albums->links() }}
+                       {{ $data['albums']->links() }}
                    </div>
                </div>
             </div>

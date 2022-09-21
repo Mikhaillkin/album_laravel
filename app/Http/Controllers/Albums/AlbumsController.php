@@ -7,6 +7,8 @@ use App\Http\Requests\Album\StoreAlbum;
 use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
 use App\Models\Photo;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
@@ -14,15 +16,17 @@ class AlbumsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
-        $albums = Album::where('user_id',Auth::user()->id)->orderBy('updated_at','desc')->paginate(10);
-        $randomPhoto = Photo::get();
+
+        $data = [];
+        $data['albums'] = Album::with('photos')->where('user_id',Auth::user()->id)->orderBy('updated_at','desc')->paginate(10);
+        $data['randomPhoto'] = Photo::get();
 
 
-        return view('albums.index',compact('albums','randomPhoto'));
+        return view('albums.index',compact('data'));
     }
 
     /**
