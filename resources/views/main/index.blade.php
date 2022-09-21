@@ -19,6 +19,7 @@
                     @foreach($data['albums'] as $album)
                         @php
                             $AuthorizedUserId = auth()->user()->id ?? 0;
+//                            dd((boolean) $AuthorizedUserId);
                             $photosInAlbum = $album->photos->where('album_id',$album->id);
                             $albumIsEmpty = empty($photosInAlbum->toArray());
 

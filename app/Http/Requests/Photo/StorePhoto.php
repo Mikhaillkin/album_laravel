@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Photo;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StorePhoto extends FormRequest
 {
@@ -13,7 +14,8 @@ class StorePhoto extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $isAuth = (boolean) Auth::user()->id ?? 0;
+        return $isAuth;
     }
 
     /**

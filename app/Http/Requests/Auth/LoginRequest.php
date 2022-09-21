@@ -18,7 +18,8 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $isAuth = (boolean) Auth::user()->id ?? 0;
+        return $isAuth;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Album;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateAlbum extends FormRequest
 {
@@ -13,7 +14,8 @@ class UpdateAlbum extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $isAuth = (boolean) Auth::user()->id ?? 0;
+        return $isAuth;
     }
 
     /**
