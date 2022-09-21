@@ -62,7 +62,12 @@ class PhotosController extends Controller
      */
     public function destroy(Photo $photo)
     {
+
+        $album = Album::findOrFail($photo->album_id);
+
         $photo->delete();
+
+        $album->update([ 'updated_at' => now() ]);
 
         return response()->json(['code'=>1,'msg'=>'Photo has been deleted successfully']);
     }
