@@ -7,7 +7,6 @@
     @php
         $AuthorizedUserId = auth()->user()->id;
     @endphp
-{{--    @dd($data['photos']);--}}
 
     <section class="jumbotron text-center">
         <div class="container">

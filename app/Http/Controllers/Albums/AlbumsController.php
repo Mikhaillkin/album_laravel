@@ -7,12 +7,8 @@ use App\Http\Requests\Album\StoreAlbum;
 use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
 use App\Models\Photo;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Response;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
@@ -106,23 +102,13 @@ class AlbumsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Album $album
+     * @return JsonResponse
      */
     public function destroy(Album $album)
     {
-        $photos = Photo::with('album')->where('album_id', $album->id)->get()->all();
-
-        if(!empty($photos)) {
-            foreach ($photos as $photo) {
-                $photo->delete();
-            }
-        }
-
-
         $album->delete();
 
-//        return redirect()->route('main.index',);
         return response()->json(['code'=>1,'msg'=>'Album has been deleted successfully']);
     }
 }

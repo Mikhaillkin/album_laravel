@@ -22,7 +22,7 @@ class CreatePhotosTable extends Migration
             $table->unsignedBigInteger('album_id');
 
             $table->index('album_id','album_id_idx');
-            $table->foreign('album_id', 'album_id_fk')->on('albums')->references('id');
+            $table->foreign('album_id', 'album_id_fk')->on('albums')->references('id')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
