@@ -43,12 +43,20 @@ class PhotosController extends Controller
             $image = Storage::disk('public')->put('/photos', $file);
             $album = Album::findOrFail($request->album_id);
 
-            Photo::create([
+//            dd($album);
+
+            $album->photos()->create([
                 'caption' => $captions[$key] ?? $file->getClientOriginalName(),
                 'image' => Storage::url($image),
-                'album_id' => $request->album_id,
             ]);
-            $album->update([ 'updated_at' => now() ]);
+
+//            Photo::create([
+//                'caption' => $captions[$key] ?? $file->getClientOriginalName(),
+//                'image' => Storage::url($image),
+//                'album_id' => $request->album_id,
+//            ]);
+
+            $album->update([ 'last_photo_upload_at' => now() ]);
         };
 
         return response()->json(['code'=>1,'msg'=>'Photos has been uploaded successfully','album_id'=> $request->album_id]);

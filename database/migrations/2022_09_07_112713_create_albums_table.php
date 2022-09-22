@@ -19,6 +19,7 @@ class CreateAlbumsTable extends Migration
             $table->string('title')->unique();
             $table->text('description');
             $table->unsignedBigInteger('user_id');
+            $table->timestamp('last_photo_upload_at')->nullable();
 
             $table->index('user_id','album_user_idx');
             $table->foreign('user_id', 'album_user_fk')->on('users')->references('id');

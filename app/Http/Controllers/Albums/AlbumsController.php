@@ -9,6 +9,7 @@ use App\Models\Album;
 use App\Models\Photo;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
@@ -20,13 +21,17 @@ class AlbumsController extends Controller
      */
     public function index()
     {
+         Arr::set(
+            $data,
+            'albums',
+            Album::with('photos')
+                ->where('user_id', Auth::user()->id)
+                ->orderBy('updated_at', 'desc')
+                ->paginate(10)
+        );
 
-        $data = [];
-        $data['albums'] = Album::with('photos')->where('user_id',Auth::user()->id)->orderBy('updated_at','desc')->paginate(10);
-        $data['randomPhoto'] = Photo::get();
 
-
-        return view('albums.index',compact('data'));
+        return view('albums.index', compact('data'));
     }
 
     /**
@@ -37,7 +42,7 @@ class AlbumsController extends Controller
     public function create()
     {
         $albums = Album::all();
-        return view('albums.create',compact('albums'));
+        return view('albums.create', compact('albums'));
     }
 
     /**
@@ -51,9 +56,13 @@ class AlbumsController extends Controller
 
         $data = $request->validated();
         $data['user_id'] = Auth::user()->id;
-        Album::create($data);
+        $data['last_photo_upload_at'] = now();
 
-        return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
+        if ( !(Album::create($data)) ) {
+            return response()->json(['code' => 0, 'msg' => 'Error']);
+        }
+
+        return response()->json(['code' => 1, 'msg' => 'New album has been created successfully']);
     }
 
     /**
@@ -64,9 +73,21 @@ class AlbumsController extends Controller
      */
     public function show(Album $album)
     {
-        $data = [];
-        $data['photos'] = Photo::with('album')->where('album_id', $album->id)->get()->all();
-        $data['album'] = $album;
+//        $data = [];
+//        $data['photos'] = Photo::with('album')->where('album_id', $album->id)->get()->all();
+//        $data['album'] = $album;
+
+        Arr::set(
+            $data,
+            'photos',
+            Photo::with('album')->where('album_id', $album->id)->get()->all()
+        );
+
+        Arr::set(
+            $data,
+            'album',
+            $album
+        );
 
         return view('albums.show', compact('data'));
     }
@@ -89,14 +110,15 @@ class AlbumsController extends Controller
      * @param Album $album
      * @return JsonResponse
      */
-    public function update(UpdateAlbum $request,Album $album)
+    public function update(UpdateAlbum $request, Album $album)
     {
 
+        if ( !($album->update($request->validated())) ) {
+            return response()->json(['code' => 0, 'msg' => 'Error']);
+        }
 
-        $data = $request->validated();
-        $album->update($data);
 
-        return response()->json(['code'=>1,'msg'=>'Album has been updated successfully']);
+        return response()->json(['code' => 1, 'msg' => 'New album has been updated successfully']);
     }
 
     /**
@@ -109,6 +131,6 @@ class AlbumsController extends Controller
     {
         $album->delete();
 
-        return response()->json(['code'=>1,'msg'=>'Album has been deleted successfully']);
+        return response()->json(['code' => 1, 'msg' => 'Album has been deleted successfully']);
     }
 }

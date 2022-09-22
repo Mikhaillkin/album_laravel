@@ -4,16 +4,13 @@
 @section('content')
 
 <main role="main">
-    @php
-        $AuthorizedUserId = auth()->user()->id;
-    @endphp
-
+{{--    @dd($data['photos'])--}}
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">Страница альбома "{{ $data['album']->title }}"</h1>
             <p class="lead text-muted">Описание: {{ $data['album']->description }}</p>
             <p>
-                @if ( $data['album']->user_id == $AuthorizedUserId)
+                @if ( $data['album']->user_id == auth()->user()->id)
                     <a href="{{ route('photos.create',['album_id' => $data['album']->id]) }}" class="btn btn-primary my-2">Добавить фотографию</a>
                 @endif
             </p>
@@ -34,7 +31,7 @@
                                             style="margin-bottom: 0; text-align: center;display: flex;align-items: center;overflow: hidden;">
                                         {{ $photo->caption }}
                                     </p>
-                                    @if ( $photo->album->user_id == $AuthorizedUserId)
+                                    @if ( $photo->album->user_id == auth()->user()->id)
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="btn-group">
                                                 <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="#" method="DELETE" data-photoid="{{$photo->id}}">
