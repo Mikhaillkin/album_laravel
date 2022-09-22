@@ -14,8 +14,7 @@ class StoreAlbum extends FormRequest
      */
     public function authorize()
     {
-        $isAuth = (boolean) Auth::user()->id ?? 0;
-        return $isAuth;
+        return Auth::check();
     }
 
     /**

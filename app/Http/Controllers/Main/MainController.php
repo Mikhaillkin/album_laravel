@@ -17,18 +17,14 @@ class MainController extends Controller
     public function index()
     {
 
-//        dd(Album::all()->photos());
-
         Arr::set(
             $data,
             'albums',
-            Album::orderBy('last_photo_upload_at','desc')->paginate(10)
+            Album::orderBy('last_photo_upload_at', 'desc')->paginate(10)
         );
 
 
-//        dd($data['albums']);
-
-        return view('main.index',compact('data'));
+        return view('main.index', compact('data'));
     }
 
 }
