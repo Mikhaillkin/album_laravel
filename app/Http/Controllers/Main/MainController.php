@@ -18,7 +18,6 @@ class MainController extends Controller
     {
         $data = [];
         $data['albums'] = Album::with('photos')->orderBy('updated_at','desc')->paginate(10);
-        $data['randomPhoto'] = Photo::get();
 
         return view('main.index',compact('data'));
     }

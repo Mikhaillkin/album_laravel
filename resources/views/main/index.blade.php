@@ -17,23 +17,9 @@
                 <div class="row" style="margin-bottom: 50px;">
 
                     @foreach($data['albums'] as $album)
-                        @php
-                            $AuthorizedUserId = auth()->user()->id ?? 0;
-//                            dd((boolean) $AuthorizedUserId);
-                            $photosInAlbum = $album->photos->where('album_id',$album->id);
-                            $albumIsEmpty = empty($photosInAlbum->toArray());
-
-
-                            if( !$albumIsEmpty ) {
-                                $randomOnePhoto = $photosInAlbum->random(1)->toArray();
-                            } else {
-                                $randomOnePhoto = NULL;
-                            }
-
-                        @endphp
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">
-                                    <img class="card-img-top" src="{{ $randomOnePhoto[0]["image"] ?? 'noimage.png' }}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
+                                    <img class="card-img-top" src="{{  $album->photos->first()->image ?? 'noimage.png' }}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
                                     <div class="card-body">
                                     <strong>{{ $album->title }}</strong>
                                     <p>{{ $album->photos->count() . ' Фото' }}</p>
@@ -42,7 +28,7 @@
                                         <div class="btn-group">
                                             <a href="{{ route('albums.show',$album->id) }}" type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center">View</a>
                                             @auth
-                                                @if ( $album->user_id == $AuthorizedUserId)
+                                                @if ( $album->user_id == (auth()->user()->id ?? 0))
                                                     <a href="{{ route('albums.edit',$album->id) }}" type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center">Edit</a>
                                                     <form class="btn btn-sm btn-outline-secondary d-flex align-items-center" action="#" data-albumid="{{$album->id}}" method="DELETE">
                                                         @csrf
