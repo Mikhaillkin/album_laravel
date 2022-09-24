@@ -7,6 +7,9 @@ use App\Http\Requests\Album\StoreAlbum;
 use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
 use App\Models\Photo;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
@@ -14,67 +17,73 @@ class AlbumsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
-        $albums = Album::where('user_id',Auth::user()->id)->orderBy('updated_at','desc')->paginate(10);
-        $randomPhoto = Photo::get();
+        Arr::set(
+            $data,
+            'albums',
+            Album::with('photos')
+                ->where('user_id', Auth::user()->id)
+                ->orderBy('updated_at', 'desc')
+                ->paginate(10)
+        );
 
 
-        return view('albums.index',compact('albums','randomPhoto'));
+        return view('albums.index', compact('data'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
         $albums = Album::all();
-        return view('albums.create',compact('albums'));
+        return view('albums.create', compact('albums'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @param StoreAlbum $request
+     * @return JsonResponse
      */
     public function store(StoreAlbum $request)
     {
 
-        $data = [
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => Auth::user()->id,
-        ];
-        Album::create($data);
+        if (Album::create($request->validated())) {
+            return response()->json(['code' => 1, 'msg' => 'New album has been created successfully']);
+        }
 
-        return response()->json(['code'=>1,'msg'=>'New album has been created successfully']);
+        return response()->json(['code' => 0, 'msg' => 'Error']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Album $album
+     * @return View
      */
     public function show(Album $album)
     {
-        $photos = Photo::with('album')->where('album_id', $album->id)->get()->all();
 
-        $AuthorizedUserId = Auth::user()->id;
+        Arr::set(
+            $data,
+            'album',
+            $album->load('photos')
+        );
 
-        return view('albums.show', compact('album','photos','AuthorizedUserId'));
+        return view('albums.show', compact('data'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Album $album
+     * @return View
      */
     public function edit(Album $album)
     {
@@ -84,42 +93,30 @@ class AlbumsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateAlbum $request
+     * @param Album $album
+     * @return JsonResponse
      */
-    public function update(UpdateAlbum $request,Album $album)
+    public function update(UpdateAlbum $request, Album $album)
     {
 
-        $data = [
-            'title' => $request->title,
-            'description' => $request->description,
-        ];
+        if ($album->update($request->validated())) {
+            return response()->json(['code' => 1, 'msg' => 'New album has been updated successfully']);
+        }
 
-        $album->update($data);
-        return response()->json(['code'=>1,'msg'=>'Album has been updated successfully']);
+        return response()->json(['code' => 0, 'msg' => 'Error']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Album $album
+     * @return JsonResponse
      */
     public function destroy(Album $album)
     {
-        $photos = Photo::with('album')->where('album_id', $album->id)->get()->all();
+        $album->deleteOrFail();
 
-        if(!empty($photos)) {
-            foreach ($photos as $photo) {
-                $photo->delete();
-            }
-        }
-
-
-        $album->delete();
-
-//        return redirect()->route('main.index',);
-        return response()->json(['code'=>1,'msg'=>'Album has been deleted successfully']);
+        return response()->json(['code' => 1, 'msg' => 'Album has been deleted successfully']);
     }
 }

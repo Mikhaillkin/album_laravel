@@ -13,7 +13,8 @@ class Album extends Model
     protected $guarded = false;
 
 
-    public function photos() {
+    public function photos()
+    {
         return $this->hasMany(Photo::class, 'album_id', 'id');
     }
 }

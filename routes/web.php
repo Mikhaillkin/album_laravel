@@ -27,4 +27,4 @@ Route::get('/dashboard', function() {
 
 
 Route::resource('albums',AlbumsController::class)->middleware(['auth']);
-Route::resource('photos',PhotosController::class)->middleware(['auth']);
+Route::resource('photos',PhotosController::class)->middleware(['auth'])->only(['create','store','destroy']);

@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Photo extends Model
 {
     use HasFactory;
+
     protected $table = 'photos';
     protected $guarded = false;
 
-    public function album() {
-        return $this->belongsTo(Album::class, 'album_id','id');
+    public function album()
+    {
+        return $this->belongsTo(Album::class, 'album_id', 'id');
     }
 }
