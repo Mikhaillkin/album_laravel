@@ -20,7 +20,7 @@
     <div class="album py-5 bg-light">
         <div class="container">
             <div class="row">
-                @if( !empty($data['album']->photos) )
+                @if( !($data['album']->photos->isEmpty()) )
                     @foreach($data['album']->photos as $photo)
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">
