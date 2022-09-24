@@ -4,7 +4,6 @@ namespace App\Observers;
 
 use App\Models\Album;
 use Carbon\Carbon;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumObserver
