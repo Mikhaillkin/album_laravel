@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Album\StoreAlbum;
 use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
-use App\Models\Photo;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -24,9 +23,8 @@ class AlbumsController extends Controller
         Arr::set(
             $data,
             'albums',
-            Album::with('photos')
-                ->where('user_id', Auth::user()->id)
-                ->orderBy('updated_at', 'desc')
+            Album::where('user_id', Auth::user()->id)
+                ->orderBy('last_photo_upload_at', 'desc')
                 ->paginate(10)
         );
 
