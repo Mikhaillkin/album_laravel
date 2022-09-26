@@ -6,13 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Album\StoreAlbum;
 use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
 {
+    const SUCCESS = 1;
+    const FAILED = 0;
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,15 +25,9 @@ class AlbumsController extends Controller
     public function index()
     {
 
-        //arr::set и подобные конструкциии есть смысл использовать когда в них есть какая-то необходимость. Убрать, переписать на линейный код.
-        Arr::set(
-            $data,
-            'albums',
-            Album::where('user_id', Auth::user()->id)
-                ->orderBy('last_photo_upload_at', 'desc')
-                ->paginate(10)
-        );
-
+        $data['albums'] = Album::where('user_id', Auth::user()->id)
+            ->orderBy('last_photo_upload_at', 'desc')
+            ->paginate(10);
 
         return view('albums.index', compact('data'));
     }
@@ -41,8 +39,7 @@ class AlbumsController extends Controller
      */
     public function create()
     {
-        $albums = Album::all(); // для чего здесь необходим весь список альбомов?
-        return view('albums.create', compact('albums'));
+        return view('albums.create');
     }
 
     /**
@@ -53,17 +50,13 @@ class AlbumsController extends Controller
      */
     public function store(StoreAlbum $request)
     {
-
-        if (Album::create($request->validated())) {
-            return response()->json(['code' => 1, 'msg' => 'New album has been created successfully']);
+        try {
+            if (Album::create($request->validated())) {
+                return response()->json(['code' => self::SUCCESS, 'msg' => 'New album has been created successfully']);
+            }
+        } catch (Exception $exception) {
+            abort(500);
         }
-
-        // code = 1 - висячая константа. Не понятно, почему она один и что это означает.
-        // вынести её в константы класса
-
-        // здесь достаточно оставить создание и ответ после него.
-        // создание если не получится - породить исключение
-        return response()->json(['code' => 0, 'msg' => 'Error']);
     }
 
     /**
@@ -74,13 +67,7 @@ class AlbumsController extends Controller
      */
     public function show(Album $album)
     {
-
-        //arr::set и подобные конструкциии есть смысл использовать когда в них есть какая-то необходимость. Убрать, переписать на линейный код.
-        Arr::set(
-            $data,
-            'album',
-            $album->load('photos')
-        );
+        $data['album'] = $album->load('photos');
 
         return view('albums.show', compact('data'));
     }
@@ -105,13 +92,13 @@ class AlbumsController extends Controller
      */
     public function update(UpdateAlbum $request, Album $album)
     {
-        // здесь достаточно оставить изменение и ответ после него.
-        // создание если не получится - породить исключение
-        if ($album->update($request->validated())) {
-            return response()->json(['code' => 1, 'msg' => 'New album has been updated successfully']);
+        try {
+            if ($album->update($request->validated())) {
+                return response()->json(['code' => self::SUCCESS, 'msg' => 'New album has been updated successfully']);
+            }
+        } catch (Exception $exception) {
+            abort(500);
         }
-
-        return response()->json(['code' => 0, 'msg' => 'Error']);
     }
 
     /**

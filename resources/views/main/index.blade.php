@@ -19,7 +19,11 @@
                     @foreach($data['albums'] as $album)
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">
-                                    <img class="card-img-top" src="{{  $album->photos->first()->image ?? 'noimage.png' }}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
+                                    @if(!($album->photos->isEmpty()))
+                                        <img class="card-img-top" src="{{  Storage::url($album->photos->first()->image) }}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
+                                    @else
+                                        <img class="card-img-top" src="{{ 'noimage.png' }}" alt="Thumbnail [100%x225]" style="height: 225px; width: 100%; display: block;" data-holder-rendered="true">
+                                    @endif
                                     <div class="card-body">
                                     <strong>{{ $album->title }}</strong>
                                     <p>{{ $album->photos->count() . ' Фото' }}</p>
