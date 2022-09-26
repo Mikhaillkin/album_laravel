@@ -4,7 +4,6 @@
 @section('content')
 
 <main role="main">
-{{--    @dd($data['photos'])--}}
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">Страница альбома "{{ $data['album']->title }}"</h1>
@@ -24,7 +23,7 @@
                     @foreach($data['album']->photos as $photo)
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">
-                                <img class="card-img-top" style="height: 225px; width: 100%; display: block;" src="{{ $photo->image }}" alt="Card image cap">
+                                <img class="card-img-top" style="height: 225px; width: 100%; display: block;" src="{{ Storage::url($photo->image) }}" alt="Card image cap">
                                 <div class="card-body d-flex justify-content-between" >
                                     <p
                                             class="card-text"

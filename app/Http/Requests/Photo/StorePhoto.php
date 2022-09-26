@@ -14,7 +14,7 @@ class StorePhoto extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -27,13 +27,13 @@ class StorePhoto extends FormRequest
         return [
             'images' => 'required|array',
             'images.*' => 'required|mimes:jpg,jpeg,bmp,png,gif',
-            'album_id' => 'required|integer' // нет проверки на существование альбома
+            'album_id' => 'required|integer|exists:albums,id'
         ];
     }
 
-    public function messages() {
-        return [
-            'images.required' => 'Выберите одно или несколько фото'
-        ];
-    }
+//    public function messages() {
+//        return [
+//            'images.required' => 'Выберите одно или несколько фото'
+//        ];
+//    }
 }
