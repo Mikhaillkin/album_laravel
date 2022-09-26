@@ -27,7 +27,7 @@ class StorePhoto extends FormRequest
         return [
             'images' => 'required|array',
             'images.*' => 'required|mimes:jpg,jpeg,bmp,png,gif',
-            'album_id' => 'required|integer'
+            'album_id' => 'required|integer' // нет проверки на существование альбома
         ];
     }
 

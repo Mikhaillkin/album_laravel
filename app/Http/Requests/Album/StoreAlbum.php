@@ -31,6 +31,7 @@ class StoreAlbum extends FormRequest
     }
 
     public function messages() {
+        // это вовсе не обязательно тут расписывать, можно просто русифицировать валидатор. Сделай это.
         return [
             'title.required' => 'Это поле не должно быть пустым',
             'title.string' => 'Это поле должно быть строкой',

@@ -20,6 +20,8 @@ class AlbumsController extends Controller
      */
     public function index()
     {
+
+        //arr::set и подобные конструкциии есть смысл использовать когда в них есть какая-то необходимость. Убрать, переписать на линейный код.
         Arr::set(
             $data,
             'albums',
@@ -39,7 +41,7 @@ class AlbumsController extends Controller
      */
     public function create()
     {
-        $albums = Album::all();
+        $albums = Album::all(); // для чего здесь необходим весь список альбомов?
         return view('albums.create', compact('albums'));
     }
 
@@ -56,6 +58,11 @@ class AlbumsController extends Controller
             return response()->json(['code' => 1, 'msg' => 'New album has been created successfully']);
         }
 
+        // code = 1 - висячая константа. Не понятно, почему она один и что это означает.
+        // вынести её в константы класса
+
+        // здесь достаточно оставить создание и ответ после него.
+        // создание если не получится - породить исключение
         return response()->json(['code' => 0, 'msg' => 'Error']);
     }
 
@@ -68,6 +75,7 @@ class AlbumsController extends Controller
     public function show(Album $album)
     {
 
+        //arr::set и подобные конструкциии есть смысл использовать когда в них есть какая-то необходимость. Убрать, переписать на линейный код.
         Arr::set(
             $data,
             'album',
@@ -97,7 +105,8 @@ class AlbumsController extends Controller
      */
     public function update(UpdateAlbum $request, Album $album)
     {
-
+        // здесь достаточно оставить изменение и ответ после него.
+        // создание если не получится - породить исключение
         if ($album->update($request->validated())) {
             return response()->json(['code' => 1, 'msg' => 'New album has been updated successfully']);
         }

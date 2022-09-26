@@ -41,11 +41,11 @@ class PhotosController extends Controller
 
         foreach ($files as $key => $file) {
             $image = Storage::disk('public')->put('/photos', $file);
-            $album = Album::findOrFail($request->album_id);
+            $album = Album::findOrFail($request->album_id); //альбом будет выбран в цикле столько раз, сколько файлов, хотя достаточно один раз. Вынести из цикла.
 
             $album->photos()->create([
                 'caption' => $captions[$key] ?? $file->getClientOriginalName(),
-                'image' => Storage::url($image),
+                'image' => Storage::url($image), // сохранение ссылки в бд недопустимо. Нужно сохранять путь в сторейдже.
             ]);
         };
 

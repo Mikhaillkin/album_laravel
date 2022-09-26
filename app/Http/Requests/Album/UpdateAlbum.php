@@ -14,7 +14,7 @@ class UpdateAlbum extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return Auth::check(); // если используем соответствующий middleware в ограничении, то смысла в этом тут нет.
     }
 
     /**
