@@ -28,6 +28,7 @@ class AlbumsController extends Controller
         $data['albums'] = Album::where('user_id', Auth::user()->id)
             ->orderBy('last_photo_upload_at', 'desc')
             ->paginate(10);
+        //зачем тут вообще понадобился массив data?
 
         return view('albums.index', compact('data'));
     }
@@ -50,6 +51,7 @@ class AlbumsController extends Controller
      */
     public function store(StoreAlbum $request)
     {
+        // в этом нет необходимости. Нужное эксепшн будет выкинут если альбом не смог создаться.
         try {
             if (Album::create($request->validated())) {
                 return response()->json(['code' => self::SUCCESS, 'msg' => 'New album has been created successfully']);
@@ -68,7 +70,7 @@ class AlbumsController extends Controller
     public function show(Album $album)
     {
         $data['album'] = $album->load('photos');
-
+//зачем тут data?
         return view('albums.show', compact('data'));
     }
 
