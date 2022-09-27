@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Album\StoreAlbum;
 use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
-use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +13,6 @@ use Illuminate\Support\Facades\Auth;
 class AlbumsController extends Controller
 {
     const SUCCESS = 1;
-    const FAILED = 0;
-
 
     /**
      * Display a listing of the resource.
@@ -24,13 +21,11 @@ class AlbumsController extends Controller
      */
     public function index()
     {
-
-        $data['albums'] = Album::where('user_id', Auth::user()->id)
+        $albums = Album::where('user_id', Auth::user()->id)
             ->orderBy('last_photo_upload_at', 'desc')
             ->paginate(10);
-        //зачем тут вообще понадобился массив data?
 
-        return view('albums.index', compact('data'));
+        return view('albums.index', compact('albums'));
     }
 
     /**
@@ -51,14 +46,9 @@ class AlbumsController extends Controller
      */
     public function store(StoreAlbum $request)
     {
-        // в этом нет необходимости. Нужное эксепшн будет выкинут если альбом не смог создаться.
-        try {
-            if (Album::create($request->validated())) {
-                return response()->json(['code' => self::SUCCESS, 'msg' => 'New album has been created successfully']);
-            }
-        } catch (Exception $exception) {
-            abort(500);
-        }
+        Album::create($request->validated());
+
+        return response()->json(['code' => self::SUCCESS, 'msg' => 'New album has been created successfully']);
     }
 
     /**
@@ -69,9 +59,9 @@ class AlbumsController extends Controller
      */
     public function show(Album $album)
     {
-        $data['album'] = $album->load('photos');
-//зачем тут data?
-        return view('albums.show', compact('data'));
+        $album = $album->load('photos');
+
+        return view('albums.show', compact('album'));
     }
 
     /**
@@ -94,13 +84,9 @@ class AlbumsController extends Controller
      */
     public function update(UpdateAlbum $request, Album $album)
     {
-        try {
-            if ($album->update($request->validated())) {
-                return response()->json(['code' => self::SUCCESS, 'msg' => 'New album has been updated successfully']);
-            }
-        } catch (Exception $exception) {
-            abort(500);
-        }
+        $album->update($request->validated());
+
+        return response()->json(['code' => self::SUCCESS, 'msg' => 'New album has been updated successfully']);
     }
 
     /**
@@ -113,6 +99,6 @@ class AlbumsController extends Controller
     {
         $album->deleteOrFail();
 
-        return response()->json(['code' => 1, 'msg' => 'Album has been deleted successfully']);
+        return response()->json(['code' => self::SUCCESS, 'msg' => 'Album has been deleted successfully']);
     }
 }

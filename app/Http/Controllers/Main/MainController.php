@@ -15,11 +15,11 @@ class MainController extends Controller
      */
     public function index()
     {
-        $data['albums'] = Album::orderBy('last_photo_upload_at', 'desc')
+        $albums = Album::orderBy('last_photo_upload_at', 'desc')
             ->paginate(10);
 
 
-        return view('main.index', compact('data'));
+        return view('main.index', compact('albums'));
     }
 
 }

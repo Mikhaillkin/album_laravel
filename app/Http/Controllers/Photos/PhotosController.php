@@ -16,7 +16,6 @@ class PhotosController extends Controller
 {
 
     const SUCCESS = 1;
-    const FAILED = 0;
 
     /**
      * Show the form for creating a new resource.
@@ -63,7 +62,6 @@ class PhotosController extends Controller
      */
     public function destroy(Photo $photo)
     {
-
         $photo->deleteOrFail();
 
         return response()->json(['code' => self::SUCCESS, 'msg' => 'Photo has been deleted successfully']);

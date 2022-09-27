@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="row" style="margin-bottom: 50px;">
 
-                    @foreach($data['albums'] as $album)
+                    @foreach($albums as $album)
                         <div class="col-md-4">
                             <div class="card mb-4 box-shadow">
                                 @if(!($album->photos->isEmpty()))
@@ -46,7 +46,7 @@
                 </div>
                 <div style="display: flex;justify-content: center">
                     <div>
-                        {{ $data['albums']->links() }}
+                        {{ $albums->links() }}
                     </div>
                 </div>
             </div>
