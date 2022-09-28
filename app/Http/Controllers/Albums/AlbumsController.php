@@ -8,11 +8,12 @@ use App\Http\Requests\Album\UpdateAlbum;
 use App\Models\Album;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class AlbumsController extends Controller
 {
+    const SUCCESS = 1;
+
     /**
      * Display a listing of the resource.
      *
@@ -20,16 +21,11 @@ class AlbumsController extends Controller
      */
     public function index()
     {
-        Arr::set(
-            $data,
-            'albums',
-            Album::where('user_id', Auth::user()->id)
-                ->orderBy('last_photo_upload_at', 'desc')
-                ->paginate(10)
-        );
+        $albums = Album::where('user_id', Auth::user()->id)
+            ->orderBy('last_photo_upload_at', 'desc')
+            ->paginate(10);
 
-
-        return view('albums.index', compact('data'));
+        return view('albums.index', compact('albums'));
     }
 
     /**
@@ -39,8 +35,7 @@ class AlbumsController extends Controller
      */
     public function create()
     {
-        $albums = Album::all();
-        return view('albums.create', compact('albums'));
+        return view('albums.create');
     }
 
     /**
@@ -51,12 +46,9 @@ class AlbumsController extends Controller
      */
     public function store(StoreAlbum $request)
     {
+        Album::create($request->validated());
 
-        if (Album::create($request->validated())) {
-            return response()->json(['code' => 1, 'msg' => 'New album has been created successfully']);
-        }
-
-        return response()->json(['code' => 0, 'msg' => 'Error']);
+        return response()->json(['code' => self::SUCCESS, 'msg' => 'New album has been created successfully']);
     }
 
     /**
@@ -67,14 +59,9 @@ class AlbumsController extends Controller
      */
     public function show(Album $album)
     {
+        $album = $album->load('photos');
 
-        Arr::set(
-            $data,
-            'album',
-            $album->load('photos')
-        );
-
-        return view('albums.show', compact('data'));
+        return view('albums.show', compact('album'));
     }
 
     /**
@@ -97,12 +84,9 @@ class AlbumsController extends Controller
      */
     public function update(UpdateAlbum $request, Album $album)
     {
+        $album->update($request->validated());
 
-        if ($album->update($request->validated())) {
-            return response()->json(['code' => 1, 'msg' => 'New album has been updated successfully']);
-        }
-
-        return response()->json(['code' => 0, 'msg' => 'Error']);
+        return response()->json(['code' => self::SUCCESS, 'msg' => 'New album has been updated successfully']);
     }
 
     /**
@@ -115,6 +99,6 @@ class AlbumsController extends Controller
     {
         $album->deleteOrFail();
 
-        return response()->json(['code' => 1, 'msg' => 'Album has been deleted successfully']);
+        return response()->json(['code' => self::SUCCESS, 'msg' => 'Album has been deleted successfully']);
     }
 }

@@ -14,7 +14,7 @@ class UpdateAlbum extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -30,12 +30,12 @@ class UpdateAlbum extends FormRequest
         ];
     }
 
-    public function messages() {
-        return [
-            'title.required' => 'Это поле не должно быть пустым',
-            'title.string' => 'Это поле должно быть строкой',
-            'description.required' => 'Это поле не должно быть пустым',
-            'description.string' => 'Это поле должно быть строкой',
-        ];
-    }
+//    public function messages() {
+//        return [
+//            'title.required' => 'Это поле не должно быть пустым',
+//            'title.string' => 'Это поле должно быть строкой',
+//            'description.required' => 'Это поле не должно быть пустым',
+//            'description.string' => 'Это поле должно быть строкой',
+//        ];
+//    }
 }

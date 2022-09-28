@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 class PhotosController extends Controller
 {
 
+    const SUCCESS = 1;
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,18 +40,18 @@ class PhotosController extends Controller
 
         $files = $request->file('images');
         $captions = $request->captions;
+        $album = Album::findOrFail($request->album_id);
 
         foreach ($files as $key => $file) {
             $image = Storage::disk('public')->put('/photos', $file);
-            $album = Album::findOrFail($request->album_id);
 
             $album->photos()->create([
                 'caption' => $captions[$key] ?? $file->getClientOriginalName(),
-                'image' => Storage::url($image),
+                'image' => $image,
             ]);
         };
 
-        return response()->json(['code' => 1, 'msg' => 'Photos has been uploaded successfully', 'album_id' => $request->album_id]);
+        return response()->json(['code' => self::SUCCESS, 'msg' => 'Photos has been uploaded successfully', 'album_id' => $request->album_id]);
     }
 
     /**
@@ -60,9 +62,8 @@ class PhotosController extends Controller
      */
     public function destroy(Photo $photo)
     {
-
         $photo->deleteOrFail();
 
-        return response()->json(['code' => 1, 'msg' => 'Photo has been deleted successfully']);
+        return response()->json(['code' => self::SUCCESS, 'msg' => 'Photo has been deleted successfully']);
     }
 }
